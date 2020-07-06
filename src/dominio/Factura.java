@@ -2,17 +2,17 @@ package dominio;
 
 import java.sql.SQLException;
 
-public class Cliente {
+public class Factura {
 	protected int x=0;
-	protected String[] codigo, cedula, nombre, apellido, edad, telefono;
-	public static int contadorcliente;
+	protected String[] idfactura, codigo, idmercancia, cantidad;
+	public static int contadorfactura;
 	
-	public Cliente() {
-		DataClient();
+	public Factura() {
+		DataFactura();
 	}
 	
-	public void DataClient() {
-		String query="SELECT * FROM persona";
+	public void DataFactura() {
+		String query="SELECT * FROM factura";
 		try {
 			Contenedor.Consulta(query);
 			while(Contenedor.resultado.next()) {
@@ -24,23 +24,19 @@ public class Cliente {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		contadorcliente=x;
+		contadorfactura=x;
+		idfactura=new String[x];
 		codigo=new String[x];
-		cedula=new String[x];
-		nombre=new String[x];
-		apellido=new String[x];
-		edad=new String[x];
-		telefono=new String[x];
+		idmercancia=new String[x];
+		cantidad=new String[x];
 		try {
 			Contenedor.Consulta(query);
 			for(int f=0;f<x;f++) {
 				if(Contenedor.resultado.next()) {
+					idfactura[f]=Contenedor.resultado.getString("idfactura");
 					codigo[f]=Contenedor.resultado.getString("codigo");
-					cedula[f]=Contenedor.resultado.getString("cedula");
-					nombre[f]=Contenedor.resultado.getString("nombre");
-					apellido[f]=Contenedor.resultado.getString("apellido");
-					edad[f]=Contenedor.resultado.getString("edad");
-					telefono[f]=Contenedor.resultado.getString("telefono");
+					idmercancia[f]=Contenedor.resultado.getString("idmercancia");
+					cantidad[f]=Contenedor.resultado.getString("cantidad");
 				}
 			}
 			Contenedor.resultado.close();
@@ -49,7 +45,6 @@ public class Cliente {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
-
+	
 }
