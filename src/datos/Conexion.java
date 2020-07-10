@@ -7,7 +7,7 @@ import com.mysql.jdbc.Connection;
 
 public class Conexion {
 	private static String username="root";
-	private static String password="br4h14m";
+	private static String password="password";
 	private static String driver="com.mysql.jdbc.Driver";
 	private static String database="jdbc:mysql://localhost:3306/cliente";
 	private static Connection conector;

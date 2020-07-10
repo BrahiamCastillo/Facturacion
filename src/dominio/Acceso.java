@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public class Acceso {
 	protected int x=0;
-	protected String[] idusuario, usuario, contraseña;
+	protected String[] idusuario, usuario, contraseÃ±a;
 	
 	public Acceso() {
 		DataAcess();
@@ -25,14 +25,14 @@ public class Acceso {
 		}
 		idusuario=new String[x];
 		usuario=new String[x];
-		contraseña=new String[x];
+		contraseÃ±a=new String[x];
 		try {
 			Contenedor.Consulta(query);
 			for(int f=0;f<x;f++) {
 				if(Contenedor.resultado.next()) {
 					idusuario[f]=Contenedor.resultado.getString("idusuario");
 					usuario[f]=Contenedor.resultado.getString("usuario");
-					contraseña[f]=Contenedor.resultado.getString("clave");
+					contraseÃ±a[f]=Contenedor.resultado.getString("clave");
 				}
 			}
 			Contenedor.resultado.close();

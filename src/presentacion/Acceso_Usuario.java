@@ -1,24 +1,35 @@
 package presentacion;
 
 import java.awt.EventQueue;
-import dominio.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JTextField;
-import javax.swing.JButton;
+import javax.swing.border.Border;
+
+import dominio.Acceso;
+
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import javax.swing.JPasswordField;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Acceso_Usuario extends Acceso {
 
-	private JFrame frmAcceso;
+	private JFrame frmAccesoUsuario;
 	private JTextField textusuario;
 	private JPasswordField passwordclave;
+	public static int idingreso;
 
 	/**
 	 * Launch the application.
@@ -28,7 +39,7 @@ public class Acceso_Usuario extends Acceso {
 			public void run() {
 				try {
 					Acceso_Usuario window = new Acceso_Usuario();
-					window.frmAcceso.setVisible(true);
+					window.frmAccesoUsuario.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,65 +58,98 @@ public class Acceso_Usuario extends Acceso {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmAcceso = new JFrame();
-		frmAcceso.setResizable(false);
-		frmAcceso.setTitle("Acceso");
-		frmAcceso.setBounds(100, 100, 381, 202);
-		frmAcceso.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAcceso.getContentPane().setLayout(new BoxLayout(frmAcceso.getContentPane(), BoxLayout.Y_AXIS));
+		frmAccesoUsuario = new JFrame();
+		frmAccesoUsuario.setResizable(false);
+		frmAccesoUsuario.setTitle("Acceso Usuario");
+		frmAccesoUsuario.setBounds(100, 100, 352, 189);
+		frmAccesoUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JLabel lblNewLabel = new JLabel("Credenciales del usuario:");
+		frmAccesoUsuario.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
-		frmAcceso.getContentPane().add(panel);
-		panel.setLayout(null);
+		Border blackline=BorderFactory.createLineBorder(Color.BLACK);
+		frmAccesoUsuario.getContentPane().add(panel, BorderLayout.CENTER);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panel.setBorder(blackline);
+		panel.setLayout(gbl_panel);
 		
-		JLabel lblNewLabel = new JLabel("Usuario:");
-		lblNewLabel.setBounds(31, 21, 69, 14);
-		panel.add(lblNewLabel);
+		JLabel lblUsuario = new JLabel("Usuario:");
+		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
+		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
+		gbc_lblUsuario.gridx = 0;
+		gbc_lblUsuario.gridy = 0;
+		panel.add(lblUsuario, gbc_lblUsuario);
 		
 		textusuario = new JTextField();
-		textusuario.setBounds(84, 18, 130, 20);
-		panel.add(textusuario);
+		GridBagConstraints gbc_textusuario = new GridBagConstraints();
+		gbc_textusuario.insets = new Insets(0, 0, 5, 0);
+		gbc_textusuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textusuario.gridx = 1;
+		gbc_textusuario.gridy = 0;
+		panel.add(textusuario, gbc_textusuario);
 		textusuario.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Contrase\u00F1a:");
-		lblNewLabel_1.setBounds(31, 61, 69, 14);
-		panel.add(lblNewLabel_1);
-		
-		JButton buttoningresar = new JButton("Aceptar");
-		buttoningresar.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				char[] arrayclave=passwordclave.getPassword();
-				String clave=new String(arrayclave);
-					for(int f=0;f<x;f++) {
-						if(textusuario.getText().equals(usuario[f]) && clave.equals(contraseña[f])) {
-							Agregar_Cliente.main(null);
-							frmAcceso.dispose();
-						}else if(textusuario.getText().equals("") || clave.equals("")) {
-							JOptionPane.showMessageDialog(null, "Llene los campos vacíos.");
-						}else {
-							JOptionPane.showMessageDialog(null, "Datos incorrectos");
-						}
-					}
-					
-			}
-		});
-		
-		buttoningresar.setBounds(33, 115, 89, 23);
-		panel.add(buttoningresar);
-		
-		JButton buttonsalir = new JButton("Salir");
-		buttonsalir.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent arg0) {
-				frmAcceso.dispose();
-			}
-		});
-		buttonsalir.setBounds(194, 115, 89, 23);
-		panel.add(buttonsalir);
+		JLabel lblContrasea = new JLabel("ContraseÃ±a:");
+		GridBagConstraints gbc_lblContrasea = new GridBagConstraints();
+		gbc_lblContrasea.anchor = GridBagConstraints.EAST;
+		gbc_lblContrasea.insets = new Insets(0, 0, 0, 5);
+		gbc_lblContrasea.gridx = 0;
+		gbc_lblContrasea.gridy = 1;
+		panel.add(lblContrasea, gbc_lblContrasea);
 		
 		passwordclave = new JPasswordField();
-		passwordclave.setBounds(104, 58, 111, 20);
-		panel.add(passwordclave);
+		GridBagConstraints gbc_passwordclave = new GridBagConstraints();
+		gbc_passwordclave.fill = GridBagConstraints.HORIZONTAL;
+		gbc_passwordclave.gridx = 1;
+		gbc_passwordclave.gridy = 1;
+		panel.add(passwordclave, gbc_passwordclave);
+		
+		JPanel panel1 = new JPanel();
+		frmAccesoUsuario.getContentPane().add(panel1, BorderLayout.SOUTH);
+		panel1.setBorder(blackline);
+		
+		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.addActionListener(new ActionListener() {
+			private String usuariolocal;
+			private String clavelocal;
+
+			public void actionPerformed(ActionEvent arg0) {
+				char[] arrayclave=passwordclave.getPassword();
+				String clave=new String(arrayclave);
+				for(int f=0;f<x;f++) {
+					if(textusuario.getText().equals(usuario[f]) && clave.equals(contraseÃ±a[f])) {
+						usuariolocal=usuario[f];
+						clavelocal=contraseÃ±a[f];
+						JOptionPane.showMessageDialog(null, "Credenciales correctas.");
+					}
+				}
+				
+				if(textusuario.getText().equals(usuariolocal) && clavelocal.equals(clave)) {
+					Agregar_Mercancia.main(null);
+					frmAccesoUsuario.dispose();
+				}else if(textusuario.getText().equals("") || clave.equals("")) {
+					JOptionPane.showMessageDialog(null, "Llene los espacios en blanco.");
+				}else {
+					JOptionPane.showMessageDialog(null, "Datos incorrectos.");
+				}
+				
+			}
+		});
+		panel1.add(btnIngresar);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmAccesoUsuario.dispose();
+			}
+		});
+		panel1.add(btnSalir);
 	}
+
 }
