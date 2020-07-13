@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import dominio.Contenedor;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
@@ -64,6 +66,8 @@ public class Agregar_Mercancia {
 		
 		JLabel lblAgregarNuevaMercanca = new JLabel("Agregar nueva mercancía:");
 		frmAgregarMercancia.getContentPane().add(lblAgregarNuevaMercanca, BorderLayout.NORTH);
+		
+		ImageIcon guardar=new ImageIcon(new ImageIcon("src/images/guardar.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
 		
 		JPanel panel = new JPanel();
 		Border blackline=BorderFactory.createLineBorder(Color.BLACK);
@@ -122,6 +126,7 @@ public class Agregar_Mercancia {
 		frmAgregarMercancia.getContentPane().add(panel1, BorderLayout.SOUTH);
 		
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setIcon(guardar);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Double preciomercancia=Double.parseDouble(textprecio.getText());

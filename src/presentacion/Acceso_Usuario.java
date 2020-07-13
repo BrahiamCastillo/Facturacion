@@ -59,6 +59,8 @@ public class Acceso_Usuario extends Acceso {
 	 */
 	private void initialize() {
 		frmAccesoUsuario = new JFrame();
+		frmAccesoUsuario.setForeground(Color.DARK_GRAY);
+		frmAccesoUsuario.setBackground(Color.DARK_GRAY);
 		frmAccesoUsuario.setResizable(false);
 		frmAccesoUsuario.setTitle("Acceso Usuario");
 		frmAccesoUsuario.setBounds(100, 100, 352, 189);
@@ -68,6 +70,7 @@ public class Acceso_Usuario extends Acceso {
 		frmAccesoUsuario.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
 		Border blackline=BorderFactory.createLineBorder(Color.BLACK);
 		frmAccesoUsuario.getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
@@ -111,6 +114,7 @@ public class Acceso_Usuario extends Acceso {
 		panel.add(passwordclave, gbc_passwordclave);
 		
 		JPanel panel1 = new JPanel();
+		panel1.setBackground(Color.LIGHT_GRAY);
 		frmAccesoUsuario.getContentPane().add(panel1, BorderLayout.SOUTH);
 		panel1.setBorder(blackline);
 		
