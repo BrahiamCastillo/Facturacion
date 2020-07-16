@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public class Cliente {
 	protected int x=0;
-	protected String[] codigo, cedula, nombre, apellido, edad, telefono;
+	protected String[] codigo, cedula, nombre, apellido, telefono;
 	public static int contadorcliente;
 	
 	public Cliente() {
@@ -29,7 +29,6 @@ public class Cliente {
 		cedula=new String[x];
 		nombre=new String[x];
 		apellido=new String[x];
-		edad=new String[x];
 		telefono=new String[x];
 		try {
 			Contenedor.Consulta(query);
@@ -39,7 +38,6 @@ public class Cliente {
 					cedula[f]=Contenedor.resultado.getString("cedula");
 					nombre[f]=Contenedor.resultado.getString("nombre");
 					apellido[f]=Contenedor.resultado.getString("apellido");
-					edad[f]=Contenedor.resultado.getString("edad");
 					telefono[f]=Contenedor.resultado.getString("telefono");
 				}
 			}

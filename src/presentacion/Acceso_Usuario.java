@@ -59,11 +59,11 @@ public class Acceso_Usuario extends Acceso {
 	 */
 	private void initialize() {
 		frmAccesoUsuario = new JFrame();
+		frmAccesoUsuario.setResizable(false);
 		frmAccesoUsuario.setForeground(Color.DARK_GRAY);
 		frmAccesoUsuario.setBackground(Color.DARK_GRAY);
-		frmAccesoUsuario.setResizable(false);
 		frmAccesoUsuario.setTitle("Acceso Usuario");
-		frmAccesoUsuario.setBounds(100, 100, 352, 189);
+		frmAccesoUsuario.setBounds(550, 300, 352, 189);
 		frmAccesoUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblNewLabel = new JLabel("Credenciales del usuario:");
@@ -135,7 +135,7 @@ public class Acceso_Usuario extends Acceso {
 				}
 				
 				if(textusuario.getText().equals(usuariolocal) && clavelocal.equals(clave)) {
-					Agregar_Mercancia.main(null);
+					Principal.frameprincipal.setEnabled(true);
 					frmAccesoUsuario.dispose();
 				}else if(textusuario.getText().equals("") || clave.equals("")) {
 					JOptionPane.showMessageDialog(null, "Llene los espacios en blanco.");
