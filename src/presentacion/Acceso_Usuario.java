@@ -1,8 +1,10 @@
 package presentacion;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +19,7 @@ import dominio.Acceso;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JPasswordField;
@@ -66,8 +69,10 @@ public class Acceso_Usuario extends Acceso {
 		frmAccesoUsuario.setBounds(550, 300, 352, 189);
 		frmAccesoUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JLabel lblNewLabel = new JLabel("Credenciales del usuario:");
-		frmAccesoUsuario.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
+		JLabel lblreservado = new JLabel("                              Brahianny's Mueblería.");
+		lblreservado.setFont(new Font("Dyuthi", Font.BOLD, 12));
+		lblreservado.setForeground(Color.RED);
+		frmAccesoUsuario.getContentPane().add(lblreservado, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
@@ -75,9 +80,9 @@ public class Acceso_Usuario extends Acceso {
 		frmAccesoUsuario.getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setBorder(blackline);
 		panel.setLayout(gbl_panel);
 		
@@ -101,17 +106,27 @@ public class Acceso_Usuario extends Acceso {
 		JLabel lblContrasea = new JLabel("Contraseña:");
 		GridBagConstraints gbc_lblContrasea = new GridBagConstraints();
 		gbc_lblContrasea.anchor = GridBagConstraints.EAST;
-		gbc_lblContrasea.insets = new Insets(0, 0, 0, 5);
+		gbc_lblContrasea.insets = new Insets(0, 0, 5, 5);
 		gbc_lblContrasea.gridx = 0;
 		gbc_lblContrasea.gridy = 1;
 		panel.add(lblContrasea, gbc_lblContrasea);
 		
 		passwordclave = new JPasswordField();
 		GridBagConstraints gbc_passwordclave = new GridBagConstraints();
+		gbc_passwordclave.insets = new Insets(0, 0, 5, 0);
 		gbc_passwordclave.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordclave.gridx = 1;
 		gbc_passwordclave.gridy = 1;
 		panel.add(passwordclave, gbc_passwordclave);
+		
+		JLabel lblcomedor = new JLabel("");
+		GridBagConstraints gbc_lblcomedor = new GridBagConstraints();
+		gbc_lblcomedor.anchor=GridBagConstraints.WEST;
+		gbc_lblcomedor.gridx = 1;
+		gbc_lblcomedor.gridy = 2;
+		ImageIcon comedor=new ImageIcon(new ImageIcon("src/images/comedor.png").getImage().getScaledInstance(150, 50, Image.SCALE_DEFAULT));
+		lblcomedor.setIcon(comedor);
+		panel.add(lblcomedor, gbc_lblcomedor);
 		
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(Color.LIGHT_GRAY);
@@ -151,6 +166,7 @@ public class Acceso_Usuario extends Acceso {
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmAccesoUsuario.dispose();
+				Principal.frameprincipal.dispose();
 			}
 		});
 		panel1.add(btnSalir);

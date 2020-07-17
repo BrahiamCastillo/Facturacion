@@ -1,8 +1,13 @@
 package presentacion;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 
 public class Principal {
 
@@ -43,6 +48,15 @@ public class Principal {
 		frameprincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frameprincipal.setBounds(100, 100, 450, 300);
 		frameprincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panel = new JPanel();
+		frameprincipal.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		
+		JLabel lblcomedor = new JLabel("");
+		ImageIcon comedor=new ImageIcon(new ImageIcon("src/images/comedor.png").getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT));
+		lblcomedor.setIcon(comedor);
+		lblcomedor.setBounds(525, 250, 300, 300);
+		panel.add(lblcomedor);
 	}
-
 }
