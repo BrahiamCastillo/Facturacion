@@ -61,13 +61,17 @@ public class Agregar_Cliente {
 		frmAgregarCliente = new JFrame();
 		frmAgregarCliente.setResizable(false);
 		frmAgregarCliente.setTitle("Agregar Cliente");
-		frmAgregarCliente.setBounds(100, 100, 600, 300);
-		frmAgregarCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAgregarCliente.setBounds(550, 250, 600, 250);
+		frmAgregarCliente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JLabel lblAgregarNuevoCliente = new JLabel("Agregar nuevo cliente:");
+		Border blackline=BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
+		JLabel lblAgregarNuevoCliente = new JLabel("                                              Agregar nuevo cliente:");
+		lblAgregarNuevoCliente.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblAgregarNuevoCliente.setBorder(blackline);
 		frmAgregarCliente.getContentPane().add(lblAgregarNuevoCliente, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.GRAY);
 		frmAgregarCliente.getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0};
@@ -77,9 +81,9 @@ public class Agregar_Cliente {
 		panel.setLayout(gbl_panel);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.GRAY);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
-		Border blackline=BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
+		gbc_panel_1.insets = new Insets(10, 10, 10, 10);
 		panel_1.setBorder(blackline);
 		gbc_panel_1.anchor=GridBagConstraints.NORTHWEST;
 		gbc_panel_1.fill=GridBagConstraints.VERTICAL;
@@ -89,6 +93,7 @@ public class Agregar_Cliente {
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.GRAY);
 		panel_1.add(panel_3);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -99,6 +104,7 @@ public class Agregar_Cliente {
 		textnombre.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(Color.GRAY);
 		panel_1.add(panel_4);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
@@ -109,6 +115,7 @@ public class Agregar_Cliente {
 		textapellido.setColumns(10);
 		
 		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(Color.GRAY);
 		panel_1.add(panel_5);
 		
 		JLabel lblCedula = new JLabel("Cedula:");
@@ -119,6 +126,7 @@ public class Agregar_Cliente {
 		textcedula.setColumns(10);
 		
 		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(Color.GRAY);
 		panel_1.add(panel_6);
 		
 		JLabel lblDireccin = new JLabel("Dirección:");
@@ -129,6 +137,7 @@ public class Agregar_Cliente {
 		textdireccion.setColumns(10);
 		
 		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(Color.GRAY);
 		panel_1.add(panel_7);
 		
 		JLabel lblTelefono = new JLabel("Telefono:");
@@ -142,6 +151,7 @@ public class Agregar_Cliente {
 		frmAgregarCliente.getContentPane().add(separator, BorderLayout.SOUTH);
 		
 		JPanel panel_8 = new JPanel();
+		panel_8.setBackground(Color.GRAY);
 		panel_8.setBorder(blackline);
 		frmAgregarCliente.getContentPane().add(panel_8, BorderLayout.WEST);
 		panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.Y_AXIS));
@@ -157,6 +167,7 @@ public class Agregar_Cliente {
 		panel_8.add(lblComedor);
 		
 		JPanel panel_9 = new JPanel();
+		panel_9.setBackground(Color.GRAY);
 		panel_9.setBorder(blackline);
 		frmAgregarCliente.getContentPane().add(panel_9, BorderLayout.EAST);
 		GridBagLayout gbl_panel_9 = new GridBagLayout();

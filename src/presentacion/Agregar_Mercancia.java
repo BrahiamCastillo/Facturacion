@@ -1,30 +1,25 @@
 package presentacion;
 
 import java.awt.EventQueue;
-import dominio.Contenedor;
+import java.awt.Font;
+import java.awt.Image;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.GridBagConstraints;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.Insets;
-import javax.swing.JSeparator;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class Agregar_Mercancia {
 
@@ -60,98 +55,100 @@ public class Agregar_Mercancia {
 	 */
 	private void initialize() {
 		frmAgregarMercancia = new JFrame();
+		frmAgregarMercancia.setResizable(false);
 		frmAgregarMercancia.setTitle("Agregar Mercancia");
-		frmAgregarMercancia.setBounds(100, 100, 450, 300);
+		frmAgregarMercancia.setBounds(550, 200, 470, 250);
 		frmAgregarMercancia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JLabel lblAgregarNuevaMercanca = new JLabel("Agregar nueva mercancía:");
-		frmAgregarMercancia.getContentPane().add(lblAgregarNuevaMercanca, BorderLayout.NORTH);
-		
-		ImageIcon guardar=new ImageIcon(new ImageIcon("src/images/guardar.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
-		
 		JPanel panel = new JPanel();
+		frmAgregarMercancia.getContentPane().add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		Border blackline=BorderFactory.createLineBorder(Color.BLACK);
 		panel.setBorder(blackline);
-		frmAgregarMercancia.getContentPane().add(panel, BorderLayout.CENTER);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		JLabel lblreservado = new JLabel("    Brahianny's Mueblería.");
+		lblreservado.setFont(new Font("Dyuthi", Font.BOLD, 12));
+		lblreservado.setForeground(Color.RED);
+		panel.add(lblreservado);
 		
-		JSeparator separator = new JSeparator();
-		GridBagConstraints gbc_separator = new GridBagConstraints();
-		gbc_separator.insets = new Insets(0, 0, 5, 5);
-		gbc_separator.fill=GridBagConstraints.HORIZONTAL;
-		gbc_separator.gridx = 0;
-		gbc_separator.gridy = 0;
-		panel.add(separator, gbc_separator);
+		JPanel panelizquierdo = new JPanel();
+		frmAgregarMercancia.getContentPane().add(panelizquierdo, BorderLayout.WEST);
 		
-		JLabel lblNombreDeLa = new JLabel("Nombre de la mercancía:");
-		GridBagConstraints gbc_lblNombreDeLa = new GridBagConstraints();
-		gbc_lblNombreDeLa.anchor = GridBagConstraints.EAST;
-		gbc_lblNombreDeLa.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNombreDeLa.gridx = 1;
-		gbc_lblNombreDeLa.gridy = 2;
-		panel.add(lblNombreDeLa, gbc_lblNombreDeLa);
+		JLabel lblComedor = new JLabel();
+		ImageIcon comedor=new ImageIcon(new ImageIcon("src/images/comedor.png").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+		lblComedor.setIcon(comedor);
+		panelizquierdo.add(lblComedor);
+		
+		JPanel panelcentral = new JPanel();
+		frmAgregarMercancia.getContentPane().add(panelcentral, BorderLayout.CENTER);
+		panelcentral.setBorder(blackline);
+		panelcentral.setBackground(Color.GRAY);
+		panelcentral.setLayout(new BoxLayout(panelcentral, BoxLayout.Y_AXIS));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.gray);
+		panelcentral.add(panel_1);
+		
+		JLabel lblMercanca = new JLabel("Mercancía:");
+		panel_1.add(lblMercanca);
 		
 		textmercancia = new JTextField();
-		GridBagConstraints gbc_textmercancia = new GridBagConstraints();
-		gbc_textmercancia.insets = new Insets(0, 0, 5, 0);
-		gbc_textmercancia.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textmercancia.gridx = 2;
-		gbc_textmercancia.gridy = 2;
-		panel.add(textmercancia, gbc_textmercancia);
+		panel_1.add(textmercancia);
 		textmercancia.setColumns(10);
 		
-		JLabel lblPrecioDeLa = new JLabel("Precio de la mercancía:");
-		GridBagConstraints gbc_lblPrecioDeLa = new GridBagConstraints();
-		gbc_lblPrecioDeLa.anchor = GridBagConstraints.EAST;
-		gbc_lblPrecioDeLa.insets = new Insets(0, 0, 0, 5);
-		gbc_lblPrecioDeLa.gridx = 1;
-		gbc_lblPrecioDeLa.gridy = 3;
-		panel.add(lblPrecioDeLa, gbc_lblPrecioDeLa);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.gray);
+		panelcentral.add(panel_2);
+		
+		JLabel lblPrecio = new JLabel("Precio:");
+		panel_2.add(lblPrecio);
 		
 		textprecio = new JTextField();
-		GridBagConstraints gbc_textprecio = new GridBagConstraints();
-		gbc_textprecio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textprecio.gridx = 2;
-		gbc_textprecio.gridy = 3;
-		panel.add(textprecio, gbc_textprecio);
+		panel_2.add(textprecio);
 		textprecio.setColumns(10);
 		
-		JPanel panel1 = new JPanel();
-		panel.setBorder(blackline);
-		frmAgregarMercancia.getContentPane().add(panel1, BorderLayout.SOUTH);
+		JPanel panelinferior = new JPanel();
+		panelinferior.setBackground(Color.gray);
+		frmAgregarMercancia.getContentPane().add(panelinferior, BorderLayout.SOUTH);
+		GridBagLayout gbl_panelinferior = new GridBagLayout();
+		gbl_panelinferior.columnWidths = new int[]{0, 0};
+		gbl_panelinferior.rowHeights = new int[]{0, 0, 0};
+		gbl_panelinferior.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panelinferior.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panelinferior.setLayout(gbl_panelinferior);
 		
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setIcon(guardar);
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Double preciomercancia=Double.parseDouble(textprecio.getText());
-				String insert="INSERT INTO mercancia(mercancia,precio,idusuario) VALUES ('"+textmercancia.getText()+"','"+preciomercancia+"','"+Acceso_Usuario.idingreso+"')";
-				try {
-					Contenedor.Insercion(insert);
-					Contenedor.st.close();
-					JOptionPane.showMessageDialog(null, "La mercancía ha sido agregada exitosamente.");
-					textmercancia.setText("");
-					textprecio.setText("");
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		panel1.add(btnAgregar);
+		ImageIcon guardar=new ImageIcon(new ImageIcon("src/images/guardar.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+		ImageIcon salir=new ImageIcon(new ImageIcon("src/images/exit.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setIcon(guardar);
+		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
+		gbc_btnGuardar.insets = new Insets(5, 5, 5, 5);
+		gbc_btnGuardar.fill=GridBagConstraints.BOTH;
+		gbc_btnGuardar.gridx = 0;
+		gbc_btnGuardar.gridy = 0;
+		gbc_btnGuardar.gridheight=2;
+		gbc_btnGuardar.gridwidth=2;
+		gbc_btnGuardar.weighty=1.0;
+		gbc_btnGuardar.weightx=1.0;
+		panelinferior.add(btnGuardar, gbc_btnGuardar);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frmAgregarMercancia.dispose();
-			}
-		});
-		panel1.add(btnSalir);
+		btnSalir.setIcon(salir);
+		GridBagConstraints gbc_btnSalir = new GridBagConstraints();
+		gbc_btnSalir.insets = new Insets(5, 5, 5, 5);
+		gbc_btnSalir.fill=GridBagConstraints.BOTH;
+		gbc_btnSalir.gridx = 2;
+		gbc_btnSalir.gridy = 0;
+		gbc_btnSalir.gridheight=2;
+		gbc_btnSalir.gridwidth=2;
+		gbc_btnSalir.weighty=1.0;
+		gbc_btnSalir.weightx=1.0;
+		panelinferior.add(btnSalir, gbc_btnSalir);
+		
+		JPanel panelderecho = new JPanel();
+		frmAgregarMercancia.getContentPane().add(panelderecho, BorderLayout.EAST);
+		
+		JLabel lblImage = new JLabel();
+		lblImage.setIcon(comedor);
+		panelderecho.add(lblImage);
 	}
-
 }
