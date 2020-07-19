@@ -32,7 +32,7 @@ public class Acceso_Usuario extends Acceso {
 	private JFrame frmAccesoUsuario;
 	private JTextField textusuario;
 	private JPasswordField passwordclave;
-	public static int idingreso;
+	public static String idingreso;
 
 	/**
 	 * Launch the application.
@@ -134,6 +134,8 @@ public class Acceso_Usuario extends Acceso {
 		panel1.setBorder(blackline);
 		
 		JButton btnIngresar = new JButton("Ingresar");
+		ImageIcon user=new ImageIcon(new ImageIcon("src/images/usuario.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+		btnIngresar.setIcon(user);
 		btnIngresar.addActionListener(new ActionListener() {
 			private String usuariolocal;
 			private String clavelocal;
@@ -145,7 +147,8 @@ public class Acceso_Usuario extends Acceso {
 					if(textusuario.getText().equals(usuario[f]) && clave.equals(contraseña[f])) {
 						usuariolocal=usuario[f];
 						clavelocal=contraseña[f];
-						JOptionPane.showMessageDialog(null, "Credenciales correctas.");
+						idingreso=idusuario[f];
+						JOptionPane.showMessageDialog(null, "Credenciales correctas.","Información",JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 				
@@ -153,9 +156,9 @@ public class Acceso_Usuario extends Acceso {
 					Principal.frameprincipal.setEnabled(true);
 					frmAccesoUsuario.dispose();
 				}else if(textusuario.getText().equals("") || clave.equals("")) {
-					JOptionPane.showMessageDialog(null, "Llene los espacios en blanco.");
+					JOptionPane.showMessageDialog(null, "Llene los espacios en blanco.","Información",JOptionPane.INFORMATION_MESSAGE);
 				}else {
-					JOptionPane.showMessageDialog(null, "Datos incorrectos.");
+					JOptionPane.showMessageDialog(null, "Datos incorrectos.","Información",JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 			}
@@ -163,6 +166,8 @@ public class Acceso_Usuario extends Acceso {
 		panel1.add(btnIngresar);
 		
 		JButton btnSalir = new JButton("Salir");
+		ImageIcon salir=new ImageIcon(new ImageIcon("src/images/exit.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+		btnSalir.setIcon(salir);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmAccesoUsuario.dispose();

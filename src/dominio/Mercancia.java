@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public class Mercancia {
 	protected int x=0;
 	protected String[] idmercancia, mercancia, preciorecolector;
-	protected float[] precio;
+	protected Double[] precio;
 	public static int contadormercancia;
 	
 	public Mercancia() {
@@ -29,7 +29,7 @@ public class Mercancia {
 		idmercancia=new String[x];
 		mercancia=new String[x];
 		preciorecolector=new String[x];
-		precio=new float[x];
+		precio=new Double[x];
 		try {
 			Contenedor.Consulta(query);
 			for(int f=0;f<x;f++) {
@@ -37,7 +37,7 @@ public class Mercancia {
 					idmercancia[f]=Contenedor.resultado.getString("idmercancia");
 					mercancia[f]=Contenedor.resultado.getString("mercancia");
 					preciorecolector[f]=Contenedor.resultado.getString("precio");
-					precio[f]=Float.parseFloat(preciorecolector[f]);
+					precio[f]=Double.parseDouble(preciorecolector[f]);
 				}
 			}
 			Contenedor.resultado.close();

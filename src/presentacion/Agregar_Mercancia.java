@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import dominio.Contenedor;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -15,11 +17,15 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Agregar_Mercancia {
 
@@ -119,6 +125,33 @@ public class Agregar_Mercancia {
 		ImageIcon guardar=new ImageIcon(new ImageIcon("src/images/guardar.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 		ImageIcon salir=new ImageIcon(new ImageIcon("src/images/exit.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int res=JOptionPane.showConfirmDialog(null, "¿ Desea ingresar los datos ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
+				if(JOptionPane.YES_OPTION==res) {
+					Double preciodef=Double.parseDouble(textprecio.getText());
+					String insert="INSERT INTO mercancia(mercancia,precio,idusuario) VALUES ('"+textmercancia.getText()+"','"+preciodef+"','"+Acceso_Usuario.idingreso+"')";
+					try {
+						Contenedor.Insercion(insert);
+						Contenedor.st.close();
+						JOptionPane.showMessageDialog(null, "¡Datos ingresados!","Notificación",JOptionPane.INFORMATION_MESSAGE);
+						textmercancia.setText("");
+						textprecio.setText("");
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				} else if(JOptionPane.CANCEL_OPTION==res) {
+					textmercancia.setText("");
+					textprecio.setText("");
+				}
+			}
+			
+		});
 		btnGuardar.setIcon(guardar);
 		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
 		gbc_btnGuardar.insets = new Insets(5, 5, 5, 5);
@@ -132,6 +165,15 @@ public class Agregar_Mercancia {
 		panelinferior.add(btnGuardar, gbc_btnGuardar);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frmAgregarMercancia.dispose();
+			}
+			
+		});
 		btnSalir.setIcon(salir);
 		GridBagConstraints gbc_btnSalir = new GridBagConstraints();
 		gbc_btnSalir.insets = new Insets(5, 5, 5, 5);

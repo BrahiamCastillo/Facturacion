@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -13,12 +15,17 @@ import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import dominio.Contenedor;
+
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.GridBagConstraints;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 
@@ -178,6 +185,37 @@ public class Agregar_Cliente {
 		panel_9.setLayout(gbl_panel_9);
 		
 		JButton btnAgregar = new JButton();
+		btnAgregar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int res=JOptionPane.showConfirmDialog(null, "¿ Desea ingresar los datos ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
+				if(JOptionPane.YES_OPTION==res) {
+					String insert="INSERT INTO persona(nombre,apellido,cedula,direccion,telefono,idusuario) VALUES ('"+textnombre.getText()+"','"+textapellido.getText()+"','"+textcedula.getText()+"','"+textdireccion.getText()+"','"+texttelefono.getText()+"','"+Acceso_Usuario.idingreso+"')";
+					try {
+						Contenedor.Insercion(insert);
+						Contenedor.st.close();
+						JOptionPane.showMessageDialog(null, "¡Datos ingresados","Notificación",JOptionPane.INFORMATION_MESSAGE);
+						textnombre.setText("");
+						textapellido.setText("");
+						textcedula.setText("");
+						textdireccion.setText("");
+						texttelefono.setText("");
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else if(JOptionPane.CANCEL_OPTION==res) {
+					textnombre.setText("");
+					textapellido.setText("");
+					textcedula.setText("");
+					textdireccion.setText("");
+					texttelefono.setText("");
+				}
+			}
+			
+		});
 		ImageIcon guardar=new ImageIcon(new ImageIcon("src/images/guardar.png").getImage().getScaledInstance(60, 200, Image.SCALE_DEFAULT));
 		btnAgregar.setIcon(guardar);
 		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
@@ -190,6 +228,15 @@ public class Agregar_Cliente {
 		panel_9.add(btnAgregar, gbc_btnAgregar);
 		
 		JButton btnSalir = new JButton();
+		btnSalir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frmAgregarCliente.dispose();
+			}
+			
+		});
 		ImageIcon exit=new ImageIcon(new ImageIcon("src/images/exit.png").getImage().getScaledInstance(60, 200, Image.SCALE_DEFAULT));
 		btnSalir.setIcon(exit);
 		GridBagConstraints gbc_btnSalir = new GridBagConstraints();
