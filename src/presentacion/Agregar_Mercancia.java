@@ -26,6 +26,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.awt.Toolkit;
 
 public class Agregar_Mercancia {
 
@@ -61,6 +62,7 @@ public class Agregar_Mercancia {
 	 */
 	private void initialize() {
 		frmAgregarMercancia = new JFrame();
+		frmAgregarMercancia.setIconImage(Toolkit.getDefaultToolkit().getImage(Agregar_Mercancia.class.getResource("/images/comedor.png")));
 		frmAgregarMercancia.setResizable(false);
 		frmAgregarMercancia.setTitle("Agregar Mercancia");
 		frmAgregarMercancia.setBounds(550, 200, 470, 250);
@@ -130,24 +132,30 @@ public class Agregar_Mercancia {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				int res=JOptionPane.showConfirmDialog(null, "¿ Desea ingresar los datos ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
-				if(JOptionPane.YES_OPTION==res) {
-					Double preciodef=Double.parseDouble(textprecio.getText());
-					String insert="INSERT INTO mercancia(mercancia,precio,idusuario) VALUES ('"+textmercancia.getText()+"','"+preciodef+"','"+Acceso_Usuario.idingreso+"')";
-					try {
-						Contenedor.Insercion(insert);
-						Contenedor.st.close();
-						JOptionPane.showMessageDialog(null, "¡Datos ingresados!","Notificación",JOptionPane.INFORMATION_MESSAGE);
+				if(textmercancia.getText().equals("") || textprecio.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "¡Llene los espacios en blanco!","Notificación",JOptionPane.ERROR_MESSAGE);
+				} else {
+					int res=JOptionPane.showConfirmDialog(null, "¿ Desea ingresar los datos ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
+					if(JOptionPane.YES_OPTION==res) {
+						try {
+							Double preciodef=Double.parseDouble(textprecio.getText());
+							String insert="INSERT INTO mercancia(mercancia,precio,idusuario) VALUES ('"+textmercancia.getText()+"','"+preciodef+"','"+Acceso_Usuario.idingreso+"')";
+							Contenedor.Insercion(insert);
+							Contenedor.st.close();
+							JOptionPane.showMessageDialog(null, "¡Datos ingresados!","Notificación",JOptionPane.INFORMATION_MESSAGE);
+							textmercancia.setText("");
+							textprecio.setText("");
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch(Exception e2) {
+							JOptionPane.showMessageDialog(null, "Introduzca un valor numérico en el precio","Error",JOptionPane.ERROR_MESSAGE);
+						}
+
+					} else if(JOptionPane.CANCEL_OPTION==res) {
 						textmercancia.setText("");
 						textprecio.setText("");
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
-
-				} else if(JOptionPane.CANCEL_OPTION==res) {
-					textmercancia.setText("");
-					textprecio.setText("");
 				}
 			}
 			

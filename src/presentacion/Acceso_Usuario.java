@@ -26,6 +26,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class Acceso_Usuario extends Acceso {
 
@@ -62,6 +63,7 @@ public class Acceso_Usuario extends Acceso {
 	 */
 	private void initialize() {
 		frmAccesoUsuario = new JFrame();
+		frmAccesoUsuario.setIconImage(Toolkit.getDefaultToolkit().getImage(Acceso_Usuario.class.getResource("/images/comedor.png")));
 		frmAccesoUsuario.setResizable(false);
 		frmAccesoUsuario.setForeground(Color.DARK_GRAY);
 		frmAccesoUsuario.setBackground(Color.DARK_GRAY);

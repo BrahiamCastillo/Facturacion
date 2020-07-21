@@ -14,6 +14,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import java.awt.Toolkit;
 
 public class Principal {
 
@@ -50,6 +51,7 @@ public class Principal {
 	 */
 	private void initialize() {
 		frameprincipal = new JFrame();
+		frameprincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/comedor.png")));
 		frameprincipal.setEnabled(false);
 		frameprincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frameprincipal.setBounds(100, 100, 450, 300);

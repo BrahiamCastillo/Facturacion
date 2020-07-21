@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.Font;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class Agregar_Cliente {
 
@@ -66,6 +67,7 @@ public class Agregar_Cliente {
 	 */
 	private void initialize() {
 		frmAgregarCliente = new JFrame();
+		frmAgregarCliente.setIconImage(Toolkit.getDefaultToolkit().getImage(Agregar_Cliente.class.getResource("/images/comedor.png")));
 		frmAgregarCliente.setResizable(false);
 		frmAgregarCliente.setTitle("Agregar Cliente");
 		frmAgregarCliente.setBounds(550, 250, 600, 250);
@@ -190,29 +192,33 @@ public class Agregar_Cliente {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				int res=JOptionPane.showConfirmDialog(null, "¿ Desea ingresar los datos ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
-				if(JOptionPane.YES_OPTION==res) {
-					String insert="INSERT INTO persona(nombre,apellido,cedula,direccion,telefono,idusuario) VALUES ('"+textnombre.getText()+"','"+textapellido.getText()+"','"+textcedula.getText()+"','"+textdireccion.getText()+"','"+texttelefono.getText()+"','"+Acceso_Usuario.idingreso+"')";
-					try {
-						Contenedor.Insercion(insert);
-						Contenedor.st.close();
-						JOptionPane.showMessageDialog(null, "¡Datos ingresados","Notificación",JOptionPane.INFORMATION_MESSAGE);
+				if(textnombre.getText().equals("") || textapellido.getText().equals("") || textcedula.getText().equals("") || textdireccion.getText().equals("") || texttelefono.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "¡Llene los espacios en blanco!","Notificación",JOptionPane.ERROR_MESSAGE);
+				} else {
+					int res=JOptionPane.showConfirmDialog(null, "¿ Desea ingresar los datos ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
+					if(JOptionPane.YES_OPTION==res) {
+						String insert="INSERT INTO persona(nombre,apellido,cedula,direccion,telefono,idusuario) VALUES ('"+textnombre.getText()+"','"+textapellido.getText()+"','"+textcedula.getText()+"','"+textdireccion.getText()+"','"+texttelefono.getText()+"','"+Acceso_Usuario.idingreso+"')";
+						try {
+							Contenedor.Insercion(insert);
+							Contenedor.st.close();
+							JOptionPane.showMessageDialog(null, "¡Datos ingresados","Notificación",JOptionPane.INFORMATION_MESSAGE);
+							textnombre.setText("");
+							textapellido.setText("");
+							textcedula.setText("");
+							textdireccion.setText("");
+							texttelefono.setText("");
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else if(JOptionPane.CANCEL_OPTION==res) {
 						textnombre.setText("");
 						textapellido.setText("");
 						textcedula.setText("");
 						textdireccion.setText("");
 						texttelefono.setText("");
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
-				} else if(JOptionPane.CANCEL_OPTION==res) {
-					textnombre.setText("");
-					textapellido.setText("");
-					textcedula.setText("");
-					textdireccion.setText("");
-					texttelefono.setText("");
-				}
+				} 
 			}
 			
 		});
