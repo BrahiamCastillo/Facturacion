@@ -1,9 +1,11 @@
 package presentacion;
 
 import java.awt.EventQueue;
+import java.util.Date;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -12,6 +14,9 @@ import javax.swing.JMenu;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+
+import presentacion.facturas.Factura_Contado;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.Toolkit;
@@ -19,6 +24,7 @@ import java.awt.Toolkit;
 public class Principal {
 
 	public static JFrame frameprincipal;
+	private JLabel lblfecha;
 
 	/**
 	 * Launch the application.
@@ -84,16 +90,38 @@ public class Principal {
 			
 		});
 		mnIngresar.add(mntmAgregarMercanca);
+		
+		JMenu mnFactura = new JMenu("Factura");
+		bar.add(mnFactura);
+		
+		JMenuItem mntmFacturaDeContado = new JMenuItem("Factura de contado");
+		mntmFacturaDeContado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Factura_Contado.main(null);
+			}
+		});
+		mnFactura.add(mntmFacturaDeContado);
 		frameprincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		frameprincipal.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
+		lblfecha = new JLabel("");
+		Date fecha=new Date();
+	    String formatofecha = "hh: mm: ss a dd-MMM-aaaa";
+		SimpleDateFormat fechaform=new SimpleDateFormat(formatofecha);
+		String fechacompleta=fechaform.format(fecha);
+		lblfecha.setText(fechacompleta);
+		lblfecha.setBounds(600, 5, 300, 300);
+		panel.add(lblfecha);
+		
 		JLabel lblcomedor = new JLabel("");
 		ImageIcon comedor=new ImageIcon(new ImageIcon("src/images/comedor.png").getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT));
 		lblcomedor.setIcon(comedor);
 		lblcomedor.setBounds(525, 250, 300, 300);
 		panel.add(lblcomedor);
+			
 	}
+	
 }
