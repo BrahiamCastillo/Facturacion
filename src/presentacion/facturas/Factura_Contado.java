@@ -3,6 +3,10 @@ package presentacion.facturas;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -12,11 +16,15 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import presentacion.Seleccion_Cliente;
+
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
@@ -32,7 +40,7 @@ public class Factura_Contado {
 	private JTextField textsubtotal;
 	private JTextField texttotal;
 	public static DefaultTableModel modelo;
-	private JTextField textfactura, textcodigo, textnombre, textapellido, textcedula, textdireccion, texttelefono;
+	public static JTextField textfactura, textcodigo, textnombre, textapellido, textcedula, textdireccion, texttelefono;
 
 	/**
 	 * Launch the application.
@@ -65,7 +73,7 @@ public class Factura_Contado {
 		frmFacturaContado.setTitle("Factura Contado");
 		frmFacturaContado.setIconImage(Toolkit.getDefaultToolkit().getImage(Factura_Contado.class.getResource("/images/comedor.png")));
 		frmFacturaContado.setBounds(325, 100, 890, 640);
-		frmFacturaContado.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmFacturaContado.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		modelo=new DefaultTableModel();
 		Border blackline=BorderFactory.createLineBorder(Color.BLACK);
 		
@@ -91,7 +99,9 @@ public class Factura_Contado {
 		gbc_btnguardar.fill=GridBagConstraints.BOTH;
 		panelnorte.add(btnGuardar, gbc_btnguardar);
 		
-		JButton btnRefrescar = new JButton("Refrescar");
+		JButton btnRefrescar = new JButton("");
+		ImageIcon refrescar=new ImageIcon(new ImageIcon("src/images/actualizar.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
+		btnRefrescar.setIcon(refrescar);
 		GridBagConstraints gbc_btrefrescar = new GridBagConstraints();
 		gbc_btrefrescar.insets = new Insets(5, 5, 5, 4);
 		gbc_btrefrescar.gridx = 2;
@@ -102,6 +112,18 @@ public class Factura_Contado {
 		panelnorte.add(btnRefrescar, gbc_btrefrescar);
 		
 		JButton btnSalir = new JButton("");
+		btnSalir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				int res=JOptionPane.showConfirmDialog(null, "¿ Desea salir de la facturación ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
+				if(JOptionPane.YES_OPTION==res) {
+					frmFacturaContado.dispose();
+				}
+			}
+			
+		});
 		ImageIcon salir=new ImageIcon(new ImageIcon("src/images/exit.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
 		btnSalir.setIcon(salir);
 		GridBagConstraints gbc_btsalir = new GridBagConstraints();
@@ -133,7 +155,9 @@ public class Factura_Contado {
 		gbl_paneleste.rowWeights = new double[]{0.0, Double.MIN_VALUE, 0.0};
 		paneleste.setLayout(gbl_paneleste);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		JButton btnAgregar = new JButton("");
+		ImageIcon agregar=new ImageIcon(new ImageIcon("src/images/anadir.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		btnAgregar.setIcon(agregar);
 		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
 		gbc_btnAgregar.insets = new Insets(5, 5, 5, 5);
 		gbc_btnAgregar.gridx = 0;
@@ -143,7 +167,9 @@ public class Factura_Contado {
 		gbc_btnAgregar.fill=GridBagConstraints.BOTH;
 		paneleste.add(btnAgregar, gbc_btnAgregar);
 		
-		JButton btnRemover = new JButton("Remover");
+		JButton btnRemover = new JButton("");
+		ImageIcon eliminar=new ImageIcon(new ImageIcon("src/images/eliminar.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		btnRemover.setIcon(eliminar);
 		GridBagConstraints gbc_btnRemover = new GridBagConstraints();
 		gbc_btnRemover.insets = new Insets(5, 5, 5, 5);
 		gbc_btnRemover.gridx = 2;
@@ -214,6 +240,13 @@ public class Factura_Contado {
 		paneloeste.add(lblNofactura, gbc_lblNofactura);
 		
 		textfactura = new JTextField();
+		Random r=new Random();
+		int number=r.nextInt(999999998)+1;
+		while(number<1000) {
+			number=r.nextInt(999999998)+1;
+		}
+		String numero=Integer.toString(number);
+		textfactura.setText(numero);
 		textfactura.setEnabled(false);
 		GridBagConstraints gbc_textfactura = new GridBagConstraints();
 		gbc_textfactura.insets = new Insets(5, 5, 5, 4);
@@ -223,7 +256,25 @@ public class Factura_Contado {
 		paneloeste.add(textfactura, gbc_textfactura);
 		textfactura.setColumns(10);
 		
-		JButton btnlimpiar = new JButton("Limpiar");
+		JButton btnlimpiar = new JButton("");
+		btnlimpiar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				int res=JOptionPane.showConfirmDialog(null, "¿ Desea limpiar los campos del cliente ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
+				if(JOptionPane.YES_OPTION==res) {
+					textcodigo.setText("");
+					textcedula.setText("");
+					textnombre.setText("");
+					textapellido.setText("");
+					textdireccion.setText("");
+					texttelefono.setText("");
+				}
+			}
+			
+		});
+		btnlimpiar.setIcon(eliminar);
 		GridBagConstraints gbc_btnLimpiar = new GridBagConstraints();
 		gbc_btnLimpiar.insets = new Insets(5, 5, 5, 4);
 		gbc_btnLimpiar.gridx = 0;
@@ -233,7 +284,17 @@ public class Factura_Contado {
 		gbc_btnLimpiar.fill=GridBagConstraints.BOTH;
 		paneloeste.add(btnlimpiar, gbc_btnLimpiar);
 		
-		JButton btnAadir = new JButton("Añadir");
+		JButton btnAadir = new JButton("");
+		btnAadir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Seleccion_Cliente.main(null);
+			}
+			
+		});
+		btnAadir.setIcon(agregar);
 		GridBagConstraints gbc_btnAadir = new GridBagConstraints();
 		gbc_btnAadir.insets = new Insets(5, 5, 5, 4);
 		gbc_btnAadir.gridx = 2;
