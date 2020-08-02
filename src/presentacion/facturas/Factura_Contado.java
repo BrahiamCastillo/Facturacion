@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import presentacion.Seleccion_Cliente;
+import presentacion.Seleccion_Mercancia;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -36,9 +39,9 @@ public class Factura_Contado {
 
 	private JFrame frmFacturaContado;
 	private JTable table;
-	private JTextField textitbis;
-	private JTextField textsubtotal;
-	private JTextField texttotal;
+	public static JTextField textitbis;
+	public static JTextField textsubtotal;
+	public static JTextField texttotal;
 	public static DefaultTableModel modelo;
 	public static JTextField textfactura, textcodigo, textnombre, textapellido, textcedula, textdireccion, texttelefono;
 
@@ -99,17 +102,19 @@ public class Factura_Contado {
 		gbc_btnguardar.fill=GridBagConstraints.BOTH;
 		panelnorte.add(btnGuardar, gbc_btnguardar);
 		
-		JButton btnRefrescar = new JButton("");
-		ImageIcon refrescar=new ImageIcon(new ImageIcon("src/images/actualizar.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
-		btnRefrescar.setIcon(refrescar);
-		GridBagConstraints gbc_btrefrescar = new GridBagConstraints();
-		gbc_btrefrescar.insets = new Insets(5, 5, 5, 4);
-		gbc_btrefrescar.gridx = 2;
-		gbc_btrefrescar.gridy = 0;
-		gbc_btrefrescar.gridheight=1;
-		gbc_btrefrescar.gridwidth=1;
-		gbc_btrefrescar.fill=GridBagConstraints.BOTH;
-		panelnorte.add(btnRefrescar, gbc_btrefrescar);
+		Date fecha=new Date();
+	    String formatofecha = "hh: mm: ss a dd-MMM-aaaa";
+		SimpleDateFormat fechaform=new SimpleDateFormat(formatofecha);
+		String fechacompleta=fechaform.format(fecha);
+		JLabel lblfecha = new JLabel(fechacompleta);
+		GridBagConstraints gbc_lblfecha = new GridBagConstraints();
+		gbc_lblfecha.insets = new Insets(5, 5, 5, 4);
+		gbc_lblfecha.gridx = 2;
+		gbc_lblfecha.gridy = 0;
+		gbc_lblfecha.gridheight=1;
+		gbc_lblfecha.gridwidth=1;
+		gbc_lblfecha.fill=GridBagConstraints.BOTH;
+		panelnorte.add(lblfecha, gbc_lblfecha);
 		
 		JButton btnSalir = new JButton("");
 		btnSalir.addActionListener(new ActionListener() {
@@ -138,6 +143,7 @@ public class Factura_Contado {
 		JPanel panelcentral = new JPanel();
 		frmFacturaContado.getContentPane().add(panelcentral, BorderLayout.CENTER);
 		
+		modelo.addColumn("ID-Mercancía");
 		modelo.addColumn("Mercancía");
 		modelo.addColumn("Cantidad");
 		modelo.addColumn("Precio unitario");
@@ -156,6 +162,15 @@ public class Factura_Contado {
 		paneleste.setLayout(gbl_paneleste);
 		
 		JButton btnAgregar = new JButton("");
+		btnAgregar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				Seleccion_Mercancia.main(null);
+			}
+			
+		});
 		ImageIcon agregar=new ImageIcon(new ImageIcon("src/images/anadir.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
 		btnAgregar.setIcon(agregar);
 		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
@@ -168,6 +183,29 @@ public class Factura_Contado {
 		paneleste.add(btnAgregar, gbc_btnAgregar);
 		
 		JButton btnRemover = new JButton("");
+		btnRemover.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				int seleccion=table.getSelectedRow();
+				if(seleccion<0) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);
+				}else {
+					float preciototal1=Float.parseFloat((String) modelo.getValueAt(seleccion, 4));
+					float itbis1=(float) (preciototal1*0.18);
+					float subtotal1=preciototal1-itbis1;
+					float preciototal=Float.parseFloat(texttotal.getText())-preciototal1-itbis1;
+					float itbis=Float.parseFloat(textitbis.getText())-itbis1;
+					float subtotal=Float.parseFloat(textsubtotal.getText())-subtotal1-itbis1;
+					texttotal.setText(Float.toString(preciototal));
+					textitbis.setText(Float.toString(itbis));
+					textsubtotal.setText(Float.toString(subtotal));
+					modelo.removeRow(seleccion);
+				}
+			}
+			
+		});
 		ImageIcon eliminar=new ImageIcon(new ImageIcon("src/images/eliminar.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
 		btnRemover.setIcon(eliminar);
 		GridBagConstraints gbc_btnRemover = new GridBagConstraints();

@@ -77,6 +77,7 @@ public class Seleccion_Cliente extends Cliente {
 			modelocliente.addRow(fila);
 		}
 		tablacliente = new JTable(modelocliente);
+		tablacliente.setShowGrid(false);
 		JScrollPane sp=new JScrollPane(tablacliente);
 		frmSeleccionarCliente.getContentPane().add(sp, BorderLayout.CENTER);
 		
