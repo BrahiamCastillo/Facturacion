@@ -209,8 +209,9 @@ public class Agregar_Cliente {
 							texttelefono.setText("");
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(null, "La cédula debe contener 12 carácteres como máximo","Error", JOptionPane.ERROR_MESSAGE);
 							e1.printStackTrace();
-						}
+					    }
 					} else if(JOptionPane.CANCEL_OPTION==res) {
 						textnombre.setText("");
 						textapellido.setText("");

@@ -20,6 +20,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -125,6 +126,7 @@ public class Seleccion_Mercancia extends Mercancia {
 		ImageIcon agregar=new ImageIcon(new ImageIcon("src/images/anadir.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
 		btnAgregar.setIcon(agregar);
 		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
+		gbc_btnAgregar.insets=new Insets(5,5,5,5);
 		gbc_btnAgregar.gridx = 0;
 		gbc_btnAgregar.gridy = 0;
 		gbc_btnAgregar.gridheight=2;
@@ -134,7 +136,7 @@ public class Seleccion_Mercancia extends Mercancia {
 		frmSeleccionarMercancia.setForeground(Color.GRAY);
 		frmSeleccionarMercancia.setIconImage(Toolkit.getDefaultToolkit().getImage(Seleccion_Mercancia.class.getResource("/images/comedor.png")));
 		frmSeleccionarMercancia.setTitle("Seleccionar Mercancia");
-		frmSeleccionarMercancia.setBounds(100, 100, 450, 300);
+		frmSeleccionarMercancia.setBounds(300, 300, 800, 200);
 		frmSeleccionarMercancia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 

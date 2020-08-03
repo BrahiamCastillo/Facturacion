@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -19,6 +20,9 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dominio.Contenedor;
+import dominio.Factura_De_Contado;
+import presentacion.Acceso_Usuario;
 import presentacion.Seleccion_Cliente;
 import presentacion.Seleccion_Mercancia;
 
@@ -35,7 +39,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 
-public class Factura_Contado {
+public class Factura_Contado extends Factura_De_Contado {
 
 	private JFrame frmFacturaContado;
 	private JTable table;
@@ -91,6 +95,44 @@ public class Factura_Contado {
 		panelnorte.setLayout(gbl_panelnorte);
 		
 		JButton btnGuardar = new JButton("");
+		btnGuardar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				int res=JOptionPane.showConfirmDialog(null, "¿ Desea grabar los datos ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
+				if(JOptionPane.YES_OPTION==res) {
+					Date fecha=new Date();
+				    String formatofecha = "hh: mm: ss a dd-MMM-aaaa";
+					SimpleDateFormat fechaform=new SimpleDateFormat(formatofecha);
+					String fechacompleta=fechaform.format(fecha);
+					int filatotal=modelo.getRowCount();
+					if(filatotal<1) {
+						for(int f=0;f<filatotal;f++) {
+							JOptionPane.showMessageDialog(null, "Debe llenar la tabla y los clientes","Error",JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						for(int f=0;f<filatotal;f++) {
+							String insert="INSERT INTO factura_contado(idfactura,codigo,idmercancia,cantidad,subtotal,fecha,itbis,preciototal,idusuario) "
+									+"VALUES ('"+textfactura.getText()+"','"+textcodigo.getText()+"','"+modelo.getValueAt(f, 0)+"',"
+									+"'"+modelo.getValueAt(f, 2)+"','"+modelo.getValueAt(f, 4)+"','"+fechacompleta+"','"+textitbis.getText()+"',"
+									+"'"+texttotal.getText()+"','"+Acceso_Usuario.idingreso+"')";
+							
+							try {
+								Contenedor.Insercion(insert);
+								Contenedor.st.close();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+						JOptionPane.showMessageDialog(null, "Los datos fueron almacenados con éxito","Afirmación",JOptionPane.INFORMATION_MESSAGE);
+				
+				}
+			}
+		  }
+			
+		});
 		ImageIcon guardar=new ImageIcon(new ImageIcon("src/images/guardar.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
 		btnGuardar.setIcon(guardar);
 		GridBagConstraints gbc_btnguardar = new GridBagConstraints();
@@ -282,6 +324,12 @@ public class Factura_Contado {
 		int number=r.nextInt(999999998)+1;
 		while(number<1000) {
 			number=r.nextInt(999999998)+1;
+			for(int f=0;f<x;f++) {
+				int factura=Integer.parseInt(idfactura[f]);
+				while(number==factura) {
+					number=r.nextInt(999999998)+1;
+				}
+			}
 		}
 		String numero=Integer.toString(number);
 		textfactura.setText(numero);
