@@ -15,5 +15,5 @@ dre, en definitiva, �mbas Interfaces servir�n de puente entre las clases pad
 datos de una clase que sea diferente a la del padre que tiene asignado.
 
 
-01:33
-23:00 horas
+
+23:30 horas
