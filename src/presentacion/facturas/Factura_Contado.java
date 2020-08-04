@@ -24,6 +24,7 @@ import dominio.Contenedor;
 import dominio.Factura_De_Contado;
 import presentacion.Acceso_Usuario;
 import presentacion.Seleccion_Cliente;
+import presentacion.Seleccion_Factura;
 import presentacion.Seleccion_Mercancia;
 
 import java.awt.GridBagLayout;
@@ -43,6 +44,7 @@ public class Factura_Contado extends Factura_De_Contado {
 
 	private JFrame frmFacturaContado;
 	private JTable table;
+	public static JButton btnGuardar;
 	public static JTextField textitbis;
 	public static JTextField textsubtotal;
 	public static JTextField texttotal;
@@ -94,7 +96,7 @@ public class Factura_Contado extends Factura_De_Contado {
 		gbl_panelnorte.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelnorte.setLayout(gbl_panelnorte);
 		
-		JButton btnGuardar = new JButton("");
+		btnGuardar = new JButton("");
 		btnGuardar.addActionListener(new ActionListener() {
 
 			@Override
@@ -144,19 +146,26 @@ public class Factura_Contado extends Factura_De_Contado {
 		gbc_btnguardar.fill=GridBagConstraints.BOTH;
 		panelnorte.add(btnGuardar, gbc_btnguardar);
 		
-		Date fecha=new Date();
-	    String formatofecha = "hh: mm: ss a dd-MMM-aaaa";
-		SimpleDateFormat fechaform=new SimpleDateFormat(formatofecha);
-		String fechacompleta=fechaform.format(fecha);
-		JLabel lblfecha = new JLabel(fechacompleta);
-		GridBagConstraints gbc_lblfecha = new GridBagConstraints();
-		gbc_lblfecha.insets = new Insets(5, 5, 5, 4);
-		gbc_lblfecha.gridx = 2;
-		gbc_lblfecha.gridy = 0;
-		gbc_lblfecha.gridheight=1;
-		gbc_lblfecha.gridwidth=1;
-		gbc_lblfecha.fill=GridBagConstraints.BOTH;
-		panelnorte.add(lblfecha, gbc_lblfecha);
+		JButton btnActualizar = new JButton("");
+		btnActualizar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				Seleccion_Factura.main(null);
+			}
+			
+		});
+		ImageIcon actualizar=new ImageIcon(new ImageIcon("src/images/actualizar.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
+		btnActualizar.setIcon(actualizar);
+		GridBagConstraints gbc_btnActualizar = new GridBagConstraints();
+		gbc_btnActualizar.insets = new Insets(5, 5, 5, 4);
+		gbc_btnActualizar.gridx = 2;
+		gbc_btnActualizar.gridy = 0;
+		gbc_btnActualizar.gridheight=1;
+		gbc_btnActualizar.gridwidth=1;
+		gbc_btnActualizar.fill=GridBagConstraints.BOTH;
+		panelnorte.add(btnActualizar, gbc_btnActualizar);
 		
 		JButton btnSalir = new JButton("");
 		btnSalir.addActionListener(new ActionListener() {
