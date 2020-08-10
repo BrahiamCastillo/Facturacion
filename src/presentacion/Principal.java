@@ -57,6 +57,7 @@ public class Principal {
 	 */
 	private void initialize() {
 		frameprincipal = new JFrame();
+		frameprincipal.setTitle("Mueblería Brahianny");
 		frameprincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/comedor.png")));
 		frameprincipal.setEnabled(false);
 		frameprincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
