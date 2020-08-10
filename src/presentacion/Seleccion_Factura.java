@@ -32,11 +32,12 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 	private JFrame frmSeleccionarFactura;
 	private JTable tablafactura;
 	private DefaultTableModel modelofactura;
-	private String[] campoidfactura, campocodigo, campocedula, camponombre, campoapellido, campodireccion, campotelefono, 
-	campoidmercancia, campomercancia, campoprecio;
+	private String[] campocedula, camponombre, campoapellido, campodireccion, campotelefono,
+	campoclientecodigo;
 	private String codigolocal, cedulalocal;
 	private JPanel paneleste;
 	private JButton btnAgregar;
+	private int contadorcliente=0;
 
 	/**
 	 * Launch the application.
@@ -74,17 +75,6 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 		modelofactura.addColumn("ID factura");
 		modelofactura.addColumn("Cédula");
 		codigolocal=codigo[0];
-		campoidfactura=new String[x];
-		campocedula=new String[x];
-		campocodigo=new String[x];
-		campoidmercancia=new String[x];
-		campoprecio=new String[x];
-		campomercancia=new String[x];
-		for(int f=1;f<x;f++) {
-			if(idfactura[f].compareTo(idfactura[f-1])!=0) {
-				campocodigo[f]=codigo[f];
-			}
-		}
 		Completivo();
 		tablafactura = new JTable(modelofactura);
 		JScrollPane jp=new JScrollPane(tablafactura);
@@ -123,7 +113,7 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 
 	@Override
 	public void Completivo() {
-		String[] codigo, cedula, nombre, apellido, telefono, direccion;
+		String[] codigoc, cedulac, nombrec, apellidoc, telefonoc, direccionc;
 		int y=0;
 		// TODO Auto-generated method stub
 		String query="SELECT * FROM persona";
@@ -138,22 +128,23 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		};
-		codigo=new String[y];
-		cedula=new String[y];
-		nombre=new String[y];
-		apellido=new String[y];
-		telefono=new String[y];
-		direccion=new String[y];
+		contadorcliente=y;
+		codigoc=new String[y];
+		cedulac=new String[y];
+		nombrec=new String[y];
+		apellidoc=new String[y];
+		telefonoc=new String[y];
+		direccionc=new String[y];
 		try {
 			Contenedor.Consulta(query);
 			for(int f=0;f<y;f++) {
 				if(Contenedor.resultado.next()) {
-					codigo[f]=Contenedor.resultado.getString("codigo");
-					cedula[f]=Contenedor.resultado.getString("cedula");
-					nombre[f]=Contenedor.resultado.getString("nombre");
-					apellido[f]=Contenedor.resultado.getString("apellido");
-					telefono[f]=Contenedor.resultado.getString("telefono");
-					direccion[f]=Contenedor.resultado.getString("direccion");
+					codigoc[f]=Contenedor.resultado.getString("codigo");
+					cedulac[f]=Contenedor.resultado.getString("cedula");
+					nombrec[f]=Contenedor.resultado.getString("nombre");
+					apellidoc[f]=Contenedor.resultado.getString("apellido");
+					telefonoc[f]=Contenedor.resultado.getString("telefono");
+					direccionc[f]=Contenedor.resultado.getString("direccion");
 				}
 			}
 			Contenedor.resultado.close();
@@ -162,42 +153,45 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		camponombre=new String[y];
-		campoapellido=new String[y];
-		campodireccion=new String[y];
-		campotelefono=new String[y];
+		
 		for(int f=0;f<y;f++) {
 			if(codigolocal.equals(codigo[f])) {
-				cedulalocal=cedula[f];
+				cedulalocal=cedulac[f];
 		}
 		
 	  }
 		String[] fila= {idfactura[0],cedulalocal};
 		modelofactura.addRow(fila);
+		campoclientecodigo=new String[y];
+		campocedula=new String[y];
+		camponombre=new String[y];
+		campoapellido=new String[y];
+		campodireccion=new String[y];
+		campotelefono=new String[y];
+		
 		for(int f=1;f<x;f++) {
 			for(int k=0;k<y;k++) {
-				if(codigo[k].equals(campocodigo[f])) {
-					campocodigo[f]=codigo[k];
-					campocedula[f]=cedula[k];
-					camponombre[k]=nombre[k];
-					campoapellido[k]=apellido[k];
-					campodireccion[k]=direccion[k];
-					campotelefono[k]=telefono[k];
+				campoclientecodigo[k]=codigoc[k];
+				campocedula[k]=cedulac[k];
+				camponombre[k]=nombrec[k];
+				campoapellido[k]=apellidoc[k];
+				campodireccion[k]=direccionc[k];
+				campotelefono[k]=telefonoc[k];
+				if(codigo[f].equals(codigoc[k]) && idfactura[f].compareTo(idfactura[f-1])!=0) {
+					String[] filam= {idfactura[f],cedulac[k]};
+					modelofactura.addRow(filam);
 				}
-				if(idfactura[f].compareTo(idfactura[f-1])!=0) {
-					campoidfactura[f]=idfactura[f];
-					String[] filaparcial= {campoidfactura[f],campocedula[f]};
-					modelofactura.addRow(filaparcial);
-				}
-			}
-		}
+				
+		    }
+		
+	 }
   }
 
 	@Override
 	public void CompletivoMercancia() {
 		// TODO Auto-generated method stub
-		String[] idmercancia, mercancia, preciorecolector;
-		Double[] precio;
+		String[] idmercanciam, mercanciam, preciorecolectorm;
+		Double[] preciom;
 		int y = 0;
 		String query="SELECT * FROM mercancia";
 		try {
@@ -211,18 +205,18 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		idmercancia=new String[y];
-		mercancia=new String[y];
-		preciorecolector=new String[y];
-		precio=new Double[y];
+		idmercanciam=new String[y];
+		mercanciam=new String[y];
+		preciorecolectorm=new String[y];
+		preciom=new Double[y];
 		try {
 			Contenedor.Consulta(query);
 			for(int f=0;f<y;f++) {
 				if(Contenedor.resultado.next()) {
-					idmercancia[f]=Contenedor.resultado.getString("idmercancia");
-					mercancia[f]=Contenedor.resultado.getString("mercancia");
-					preciorecolector[f]=Contenedor.resultado.getString("precio");
-					precio[f]=(Double) Double.parseDouble(preciorecolector[f]);
+					idmercanciam[f]=Contenedor.resultado.getString("idmercancia");
+					mercanciam[f]=Contenedor.resultado.getString("mercancia");
+					preciorecolectorm[f]=Contenedor.resultado.getString("precio");
+					preciom[f]=(Double) Double.parseDouble(preciorecolectorm[f]);
 				}
 			}
 			Contenedor.resultado.close();
@@ -237,37 +231,31 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 		} else {
 			Factura_Contado.textfactura.setText((String) modelofactura.getValueAt(seleccion, 0));
 			Factura_Contado.textcedula.setText((String) modelofactura.getValueAt(seleccion, 1));
-			for(int f=0;f<x;f++) {
-				for(int k=0;k<y;k++) {
-					if(idfactura[f].equals(modelofactura.getValueAt(seleccion, 0)) && codigo[f].equals(campocodigo[k])) {
-						campoidmercancia[f]=idmercancia[f];
-					}
-				}
-			}
-			for(int f=0;f<x;f++) {
-				for(int k=0;k<y;k++) {
-					if(idmercancia[k].equals(campoidmercancia[f])) {
-						campomercancia[k]=mercancia[k];
-						campoprecio[k]=preciorecolector[k];
-						String[] fila= {campoidmercancia[f],campomercancia[f],cantidad[f],campoprecio[f],subtotal[f]};
-						Factura_Contado.modelo.addRow(fila);
-						Factura_Contado.textcodigo.setText(codigo[f]);
-						Factura_Contado.textnombre.setText(camponombre[f]);
-						Factura_Contado.textapellido.setText(campoapellido[f]);
-						Factura_Contado.texttelefono.setText(campotelefono[f]);
-						Factura_Contado.textdireccion.setText(campodireccion[f]);
-						Factura_Contado.textitbis.setText(itbis[f]);
-						Factura_Contado.textsubtotal.setText(subtotal[f]);
-						Factura_Contado.texttotal.setText(preciototal[f]);
-						Factura_Contado.btnGuardar.setEnabled(false);
-						frmSeleccionarFactura.dispose();
-					}
-				}
-			}
-			
 		}
-		
-		
+		for(int k=0;k<x;k++) {
+			for(int f=0;f<y;f++) {
+				if(idfactura[k].equals(modelofactura.getValueAt(seleccion, 0)) && idmercancia[k].equals(idmercanciam[f])) {
+					String[] filamerca= {idmercancia[k],mercanciam[f],cantidad[k],preciorecolectorm[f],subtotal[k]};
+					Factura_Contado.modelo.addRow(filamerca);
+					Factura_Contado.textitbis.setText(itbis[k]);
+					Factura_Contado.textsubtotal.setText(precioparcial[k]);
+					Factura_Contado.texttotal.setText(preciototal[k]);
+				}
+				for(int c=0;c<contadorcliente;c++) {
+					if(campocedula[c].equals(modelofactura.getValueAt(seleccion, 1))) {
+						Factura_Contado.textcodigo.setText(campoclientecodigo[c]);
+						Factura_Contado.textnombre.setText(camponombre[c]);
+						Factura_Contado.textapellido.setText(campoapellido[c]);
+						Factura_Contado.textdireccion.setText(campodireccion[c]);
+						Factura_Contado.texttelefono.setText(campotelefono[c]);
+
+					}
+				}
+			}
+		}
+		Factura_Contado.btnGuardar.setEnabled(false);
+		Factura_Contado.btnActualizar.setEnabled(false);
+		frmSeleccionarFactura.dispose();
 	}
 
 }

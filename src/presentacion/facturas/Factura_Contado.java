@@ -44,7 +44,7 @@ public class Factura_Contado extends Factura_De_Contado {
 
 	private JFrame frmFacturaContado;
 	private JTable table;
-	public static JButton btnGuardar;
+	public static JButton btnGuardar, btnActualizar;
 	public static JTextField textitbis;
 	public static JTextField textsubtotal;
 	public static JTextField texttotal;
@@ -115,9 +115,9 @@ public class Factura_Contado extends Factura_De_Contado {
 						}
 					} else {
 						for(int f=0;f<filatotal;f++) {
-							String insert="INSERT INTO factura_contado(idfactura,codigo,idmercancia,cantidad,subtotal,fecha,itbis,preciototal,idusuario) "
+							String insert="INSERT INTO factura_contado(idfactura,codigo,idmercancia,cantidad,subtotal,precioparcial,fecha,itbis,preciototal,idusuario) "
 									+"VALUES ('"+textfactura.getText()+"','"+textcodigo.getText()+"','"+modelo.getValueAt(f, 0)+"',"
-									+"'"+modelo.getValueAt(f, 2)+"','"+modelo.getValueAt(f, 4)+"','"+fechacompleta+"','"+textitbis.getText()+"',"
+									+"'"+modelo.getValueAt(f, 2)+"','"+modelo.getValueAt(f, 4)+"','"+textsubtotal.getText()+"','"+fechacompleta+"','"+textitbis.getText()+"',"
 									+"'"+texttotal.getText()+"','"+Acceso_Usuario.idingreso+"')";
 							
 							try {
@@ -146,7 +146,7 @@ public class Factura_Contado extends Factura_De_Contado {
 		gbc_btnguardar.fill=GridBagConstraints.BOTH;
 		panelnorte.add(btnGuardar, gbc_btnguardar);
 		
-		JButton btnActualizar = new JButton("");
+		btnActualizar = new JButton("");
 		btnActualizar.addActionListener(new ActionListener() {
 
 			@Override

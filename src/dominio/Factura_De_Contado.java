@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public class Factura_De_Contado {
 	protected int x=0;
-	protected String[] idfactura, codigo, idmercancia, cantidad, subtotal, fecha, itbis, preciototal;
+	protected String[] idfactura, codigo, idmercancia, cantidad, subtotal, precioparcial, fecha, itbis, preciototal;
 	public static int contadorfactura;
 	
 	public Factura_De_Contado() {
@@ -30,6 +30,7 @@ public class Factura_De_Contado {
 		idmercancia=new String[x];
 		cantidad=new String[x];
 		subtotal=new String[x];
+		precioparcial=new String[x];
 		fecha=new String[x];
 		itbis=new String[x];
 		preciototal=new String[x];
@@ -42,6 +43,7 @@ public class Factura_De_Contado {
 					idmercancia[f]=Contenedor.resultado.getString("idmercancia");
 					cantidad[f]=Contenedor.resultado.getString("cantidad");
 					subtotal[f]=Contenedor.resultado.getString("subtotal");
+					precioparcial[f]=Contenedor.resultado.getString("precioparcial");
 					fecha[f]=Contenedor.resultado.getString("fecha");
 					itbis[f]=Contenedor.resultado.getString("itbis");
 					preciototal[f]=Contenedor.resultado.getString("preciototal");
