@@ -158,9 +158,9 @@ public class Acceso_Usuario extends Acceso {
 					Principal.frameprincipal.setEnabled(true);
 					frmAccesoUsuario.dispose();
 				}else if(textusuario.getText().equals("") || clave.equals("")) {
-					JOptionPane.showMessageDialog(null, "Llene los espacios en blanco.","Información",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Llene los espacios en blanco.","Información",JOptionPane.ERROR_MESSAGE);
 				}else {
-					JOptionPane.showMessageDialog(null, "Datos incorrectos.","Información",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Datos incorrectos.","Información",JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

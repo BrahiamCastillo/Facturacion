@@ -43,8 +43,9 @@ import javax.swing.JSeparator;
 public class Factura_Contado extends Factura_De_Contado {
 
 	private JFrame frmFacturaContado;
-	private JTable table;
 	public static JButton btnGuardar, btnActualizar;
+	public static JTable table;
+	public static JLabel lblfecha;
 	public static JTextField textitbis;
 	public static JTextField textsubtotal;
 	public static JTextField texttotal;
@@ -81,7 +82,7 @@ public class Factura_Contado extends Factura_De_Contado {
 		frmFacturaContado = new JFrame();
 		frmFacturaContado.setTitle("Factura Contado");
 		frmFacturaContado.setIconImage(Toolkit.getDefaultToolkit().getImage(Factura_Contado.class.getResource("/images/comedor.png")));
-		frmFacturaContado.setBounds(325, 100, 890, 640);
+		frmFacturaContado.setBounds(150, 100, 1200, 640);
 		frmFacturaContado.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		modelo=new DefaultTableModel();
 		Border blackline=BorderFactory.createLineBorder(Color.BLACK);
@@ -105,7 +106,7 @@ public class Factura_Contado extends Factura_De_Contado {
 				int res=JOptionPane.showConfirmDialog(null, "¿ Desea grabar los datos ?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION);
 				if(JOptionPane.YES_OPTION==res) {
 					Date fecha=new Date();
-				    String formatofecha = "hh: mm: ss a dd-MMM-aaaa";
+				    String formatofecha = "hh: mm: ss a dd-MMM-yyyy";
 					SimpleDateFormat fechaform=new SimpleDateFormat(formatofecha);
 					String fechacompleta=fechaform.format(fecha);
 					int filatotal=modelo.getRowCount();
@@ -129,6 +130,7 @@ public class Factura_Contado extends Factura_De_Contado {
 							}
 					}
 						JOptionPane.showMessageDialog(null, "Los datos fueron almacenados con éxito","Afirmación",JOptionPane.INFORMATION_MESSAGE);
+						btnGuardar.setEnabled(false);
 				
 				}
 			}
@@ -138,13 +140,25 @@ public class Factura_Contado extends Factura_De_Contado {
 		ImageIcon guardar=new ImageIcon(new ImageIcon("src/images/guardar.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
 		btnGuardar.setIcon(guardar);
 		GridBagConstraints gbc_btnguardar = new GridBagConstraints();
-		gbc_btnguardar.insets = new Insets(5, 5, 5, 4);
+		gbc_btnguardar.insets = new Insets(4, 4, 4, 4);
 		gbc_btnguardar.gridx = 0;
 		gbc_btnguardar.gridy = 0;
 		gbc_btnguardar.gridheight=1;
 		gbc_btnguardar.gridwidth=1;
 		gbc_btnguardar.fill=GridBagConstraints.BOTH;
 		panelnorte.add(btnGuardar, gbc_btnguardar);
+		
+		JButton btnImprimir = new JButton("");
+		ImageIcon impresion=new ImageIcon(new ImageIcon("src/images/impresion.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
+		btnImprimir.setIcon(impresion);
+		GridBagConstraints gbc_btnimprimir = new GridBagConstraints();
+		gbc_btnimprimir.insets = new Insets(4, 4, 4, 4);
+		gbc_btnimprimir.gridx = 1;
+		gbc_btnimprimir.gridy = 0;
+		gbc_btnimprimir.gridheight=1;
+		gbc_btnimprimir.gridwidth=1;
+		gbc_btnimprimir.fill=GridBagConstraints.BOTH;
+		panelnorte.add(btnImprimir, gbc_btnimprimir);
 		
 		btnActualizar = new JButton("");
 		btnActualizar.addActionListener(new ActionListener() {
@@ -159,8 +173,8 @@ public class Factura_Contado extends Factura_De_Contado {
 		ImageIcon actualizar=new ImageIcon(new ImageIcon("src/images/actualizar.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
 		btnActualizar.setIcon(actualizar);
 		GridBagConstraints gbc_btnActualizar = new GridBagConstraints();
-		gbc_btnActualizar.insets = new Insets(5, 5, 5, 4);
-		gbc_btnActualizar.gridx = 2;
+		gbc_btnActualizar.insets = new Insets(4, 4, 4, 4);
+		gbc_btnActualizar.gridx = 6;
 		gbc_btnActualizar.gridy = 0;
 		gbc_btnActualizar.gridheight=1;
 		gbc_btnActualizar.gridwidth=1;
@@ -183,8 +197,8 @@ public class Factura_Contado extends Factura_De_Contado {
 		ImageIcon salir=new ImageIcon(new ImageIcon("src/images/exit.png").getImage().getScaledInstance(170, 100, Image.SCALE_DEFAULT));
 		btnSalir.setIcon(salir);
 		GridBagConstraints gbc_btsalir = new GridBagConstraints();
-		gbc_btsalir.insets = new Insets(5, 5, 5, 4);
-		gbc_btsalir.gridx = 4;
+		gbc_btsalir.insets = new Insets(4, 4, 4, 4);
+		gbc_btsalir.gridx = 9;
 		gbc_btsalir.gridy = 0;
 		gbc_btsalir.gridheight=1;
 		gbc_btsalir.gridwidth=1;
@@ -193,6 +207,25 @@ public class Factura_Contado extends Factura_De_Contado {
 		
 		JPanel panelcentral = new JPanel();
 		frmFacturaContado.getContentPane().add(panelcentral, BorderLayout.CENTER);
+		GridBagLayout gbl_panelcentral = new GridBagLayout();
+		gbl_panelcentral.columnWidths = new int[]{0, 0};
+		gbl_panelcentral.rowHeights = new int[]{0, 0, 0};
+		gbl_panelcentral.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panelcentral.rowWeights = new double[]{0.0, Double.MIN_VALUE, 0.0};
+		panelcentral.setLayout(gbl_panelcentral);
+		
+		lblfecha = new JLabel("");
+		GridBagConstraints gbc_lblfecha = new GridBagConstraints();
+		gbc_lblfecha.insets = new Insets(5, 5, 5, 5);
+		gbc_lblfecha.gridx = 0;
+		gbc_lblfecha.gridy = 0;
+		gbc_lblfecha.gridwidth=2;
+		panelcentral.add(lblfecha, gbc_lblfecha);
+		Date fecha=new Date();
+	    String formatofecha = "hh: mm: ss a dd-MMM-yyyy";
+		SimpleDateFormat fechaform=new SimpleDateFormat(formatofecha);
+		String fechacompleta=fechaform.format(fecha);
+		lblfecha.setText(fechacompleta);
 		
 		modelo.addColumn("ID-Mercancía");
 		modelo.addColumn("Mercancía");
@@ -201,7 +234,14 @@ public class Factura_Contado extends Factura_De_Contado {
 		modelo.addColumn("Precio total");
 		table = new JTable(modelo);
 		JScrollPane sp=new JScrollPane(table);
-		panelcentral.add(sp);
+		GridBagConstraints gbc_JScrollsp = new GridBagConstraints();
+		gbc_JScrollsp.insets = new Insets(5, 5, 5, 5);
+		gbc_JScrollsp.gridx = 0;
+		gbc_JScrollsp.gridy = 1;
+		gbc_JScrollsp.gridheight=2;
+		gbc_JScrollsp.gridwidth=2;
+		gbc_JScrollsp.fill=GridBagConstraints.BOTH;
+		panelcentral.add(sp, gbc_JScrollsp);
 		
 		JPanel paneleste = new JPanel();
 		frmFacturaContado.getContentPane().add(paneleste, BorderLayout.EAST);

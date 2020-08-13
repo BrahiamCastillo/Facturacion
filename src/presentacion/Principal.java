@@ -110,7 +110,7 @@ public class Principal {
 		
 		lblfecha = new JLabel("");
 		Date fecha=new Date();
-	    String formatofecha = "hh: mm: ss a dd-MMM-aaaa";
+	    String formatofecha = "hh: mm: ss a dd-MMM-yyyy";
 		SimpleDateFormat fechaform=new SimpleDateFormat(formatofecha);
 		String fechacompleta=fechaform.format(fecha);
 		lblfecha.setText(fechacompleta);

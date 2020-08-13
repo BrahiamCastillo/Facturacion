@@ -232,14 +232,22 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 			Factura_Contado.textfactura.setText((String) modelofactura.getValueAt(seleccion, 0));
 			Factura_Contado.textcedula.setText((String) modelofactura.getValueAt(seleccion, 1));
 		}
+		DefaultTableModel nuevo=new DefaultTableModel();
+		nuevo.addColumn("ID-Mercancía");
+		nuevo.addColumn("Mercancía");
+		nuevo.addColumn("Cantidad");
+		nuevo.addColumn("Precio unitario");
+		nuevo.addColumn("Precio total");
 		for(int k=0;k<x;k++) {
 			for(int f=0;f<y;f++) {
 				if(idfactura[k].equals(modelofactura.getValueAt(seleccion, 0)) && idmercancia[k].equals(idmercanciam[f])) {
 					String[] filamerca= {idmercancia[k],mercanciam[f],cantidad[k],preciorecolectorm[f],subtotal[k]};
-					Factura_Contado.modelo.addRow(filamerca);
+					nuevo.addRow(filamerca);
+					Factura_Contado.table.setModel(nuevo);
 					Factura_Contado.textitbis.setText(itbis[k]);
 					Factura_Contado.textsubtotal.setText(precioparcial[k]);
 					Factura_Contado.texttotal.setText(preciototal[k]);
+					Factura_Contado.lblfecha.setText(fecha[k]);
 				}
 				for(int c=0;c<contadorcliente;c++) {
 					if(campocedula[c].equals(modelofactura.getValueAt(seleccion, 1))) {
@@ -254,7 +262,6 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 			}
 		}
 		Factura_Contado.btnGuardar.setEnabled(false);
-		Factura_Contado.btnActualizar.setEnabled(false);
 		frmSeleccionarFactura.dispose();
 	}
 
