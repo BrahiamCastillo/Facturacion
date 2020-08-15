@@ -23,6 +23,11 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Seleccion_Cliente extends Cliente {
 
@@ -31,6 +36,10 @@ public class Seleccion_Cliente extends Cliente {
 	private JTable tablacliente;
 	private JPanel paneleste;
 	private JButton btnAgregar;
+	private JPanel panelsur;
+	private JLabel lblSeleccioneElFiltro;
+	private JComboBox<String> combofiltro;
+	private JTextField textfiltro;
 
 	/**
 	 * Launch the application.
@@ -117,6 +126,75 @@ public class Seleccion_Cliente extends Cliente {
 		gbc_btnAgregar.gridwidth=2;
 		gbc_btnAgregar.fill=GridBagConstraints.BOTH;
 		paneleste.add(btnAgregar, gbc_btnAgregar);
+		
+		panelsur = new JPanel();
+		frmSeleccionarCliente.getContentPane().add(panelsur, BorderLayout.SOUTH);
+		
+		lblSeleccioneElFiltro = new JLabel("Seleccione el filtro:");
+		panelsur.add(lblSeleccioneElFiltro);
+		
+		combofiltro = new JComboBox<String>();
+		combofiltro.addItem("");
+		combofiltro.addItem("Codigo");
+		combofiltro.addItem("Cedula");
+		combofiltro.addItem("Nombre");
+		panelsur.add(combofiltro);
+		
+		textfiltro = new JTextField();
+		textfiltro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				DefaultTableModel modelonuevo=new DefaultTableModel();
+				modelonuevo.addColumn("Código");
+				modelonuevo.addColumn("Cédula");
+				modelonuevo.addColumn("Nombre");
+				modelonuevo.addColumn("Apellido");
+				modelonuevo.addColumn("Dirección");
+				modelonuevo.addColumn("Teléfono");
+				if(combofiltro.getSelectedItem().equals("Codigo")) {
+					for(int f=0;f<x;f++) {
+						char[] cadena=codigo[f].toCharArray();
+						for(int k=0;k<cadena.length;k++) {
+							String cadenaconvertida=String.valueOf(cadena[k]);
+							if(cadenaconvertida.equals(textfiltro.getText())) {
+								String[] fila= {codigo[f], cedula[f], nombre[f], apellido[f], telefono[f], direccion[f]};
+								modelonuevo.addRow(fila);
+								tablacliente.setModel(modelonuevo);
+							}
+						}
+					}
+				} else if(combofiltro.getSelectedItem().equals("Nombre")) {
+					for(int f=0;f<x;f++) {
+						char[] cadena=nombre[f].toCharArray();
+						for(int k=0;k<cadena.length;k++) {
+							String cadenaconvertida=String.valueOf(cadena[k]);
+							if(cadenaconvertida.equals(textfiltro.getText())) {
+								String[] fila= {codigo[f], cedula[f], nombre[f], apellido[f], telefono[f], direccion[f]};
+								modelonuevo.addRow(fila);
+								tablacliente.setModel(modelonuevo);
+							}
+						}
+					}
+				} else if(combofiltro.getSelectedItem().equals("Cedula")) {
+					for(int f=0;f<x;f++) {
+						char[] cadena=cedula[f].toCharArray();
+						for(int k=0;k<cadena.length;k++) {
+							String cadenaconvertida=String.valueOf(cadena[k]);
+							if(cadenaconvertida.equals(textfiltro.getText())) {
+								String[] fila= {codigo[f], cedula[f], nombre[f], apellido[f], telefono[f], direccion[f]};
+								modelonuevo.addRow(fila);
+								tablacliente.setModel(modelonuevo);
+							}
+						}
+					}
+				} else {
+					tablacliente.setModel(modelocliente);
+				}
+
+			}
+		});
+		panelsur.add(textfiltro);
+		textfiltro.setColumns(10);
 		
 	}
 

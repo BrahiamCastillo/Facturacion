@@ -14,5 +14,5 @@ y almacenarlos en Arrays a alguna clase que ya haya heredado de una clase padre,
 dre, en definitiva, �mbas Interfaces servir�n de puente entre las clases padres para las clases hijas que deseen heredar
 datos de una clase que sea diferente a la del padre que tiene asignado.
 
-10:42
-33:00 horas
+
+35:00 horas
