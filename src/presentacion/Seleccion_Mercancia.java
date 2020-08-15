@@ -118,6 +118,7 @@ public class Seleccion_Mercancia extends Mercancia {
 						Factura_Contado.textitbis.setText(Float.toString(itbis));
 						Float totalidad=contador+itbis;
 						Factura_Contado.texttotal.setText(Float.toString(totalidad));
+						frmSeleccionarMercancia.dispose();
 					}
 			 }
 		 }

@@ -103,6 +103,7 @@ public class Seleccion_Cliente extends Cliente {
 				Factura_Contado.textapellido.setText((String) tablacliente.getValueAt(seleccion, 3));
 				Factura_Contado.textdireccion.setText((String) tablacliente.getValueAt(seleccion, 4));
 				Factura_Contado.texttelefono.setText((String) tablacliente.getValueAt(seleccion, 5));
+				frmSeleccionarCliente.dispose();
 			}
 			
 		});

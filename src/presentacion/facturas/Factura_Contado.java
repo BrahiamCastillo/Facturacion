@@ -43,7 +43,7 @@ import javax.swing.JSeparator;
 public class Factura_Contado extends Factura_De_Contado {
 
 	private JFrame frmFacturaContado;
-	public static JButton btnGuardar, btnActualizar;
+	public static JButton btnGuardar, btnActualizar, btnRemover, btnAgregar;
 	public static JTable table;
 	public static JLabel lblfecha;
 	public static JTextField textitbis;
@@ -252,7 +252,7 @@ public class Factura_Contado extends Factura_De_Contado {
 		gbl_paneleste.rowWeights = new double[]{0.0, Double.MIN_VALUE, 0.0};
 		paneleste.setLayout(gbl_paneleste);
 		
-		JButton btnAgregar = new JButton("");
+		btnAgregar = new JButton("");
 		btnAgregar.addActionListener(new ActionListener() {
 
 			@Override
@@ -273,7 +273,7 @@ public class Factura_Contado extends Factura_De_Contado {
 		gbc_btnAgregar.fill=GridBagConstraints.BOTH;
 		paneleste.add(btnAgregar, gbc_btnAgregar);
 		
-		JButton btnRemover = new JButton("");
+		btnRemover = new JButton("");
 		btnRemover.addActionListener(new ActionListener() {
 
 			@Override

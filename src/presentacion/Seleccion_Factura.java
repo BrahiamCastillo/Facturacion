@@ -262,6 +262,8 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 			}
 		}
 		Factura_Contado.btnGuardar.setEnabled(false);
+		Factura_Contado.btnAgregar.setEnabled(false);
+		Factura_Contado.btnRemover.setEnabled(false);
 		frmSeleccionarFactura.dispose();
 	}
 
