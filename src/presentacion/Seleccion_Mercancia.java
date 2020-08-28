@@ -9,6 +9,8 @@ import javax.swing.JScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +27,9 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 public class Seleccion_Mercancia extends Mercancia {
 
@@ -33,6 +38,10 @@ public class Seleccion_Mercancia extends Mercancia {
 	private DefaultTableModel modelomercancia;
 	private JPanel paneleste;
 	private JButton btnAgregar;
+	private JPanel panelsur;
+	private JLabel lblSeleccioneElFiltro;
+	private JComboBox<String> combofiltro;
+	private JTextField textfiltro;
 
 	/**
 	 * Launch the application.
@@ -134,6 +143,76 @@ public class Seleccion_Mercancia extends Mercancia {
 		gbc_btnAgregar.gridwidth=2;
 		gbc_btnAgregar.fill=GridBagConstraints.BOTH;
 		paneleste.add(btnAgregar, gbc_btnAgregar);
+		
+		panelsur = new JPanel();
+		frmSeleccionarMercancia.getContentPane().add(panelsur, BorderLayout.SOUTH);
+		
+		lblSeleccioneElFiltro = new JLabel("Seleccione el filtro:");
+		panelsur.add(lblSeleccioneElFiltro);
+		
+		combofiltro = new JComboBox<String>();
+		combofiltro.addItem("");
+		combofiltro.addItem("ID-Mercancia");
+		combofiltro.addItem("Mercancia");
+		panelsur.add(combofiltro);
+		
+		textfiltro = new JTextField();
+		textfiltro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				DefaultTableModel modelonuevo=new DefaultTableModel();
+				modelonuevo.addColumn("ID-Mercancia");
+				modelonuevo.addColumn("Mercancia");
+				modelonuevo.addColumn("Precio unitario");
+				DefaultTableModel modelocodigo=new DefaultTableModel();
+				modelocodigo.addColumn("ID-Mercancia");
+				modelocodigo.addColumn("Mercancia");
+				modelocodigo.addColumn("Precio unitario");
+				DefaultTableModel modelonombre=new DefaultTableModel();
+				modelonombre.addColumn("ID-Mercancia");
+				modelonombre.addColumn("Mercancia");
+				modelonombre.addColumn("Precio unitario");
+				if(combofiltro.getSelectedItem().equals("ID-Mercancia")) {
+					for(int f=0;f<x;f++) {
+						char[] cadena=idmercancia[f].toCharArray();
+						for(int k=0;k<cadena.length;k++) {
+							String cadenaconvertida=String.valueOf(cadena[k]);
+							if(cadenaconvertida.equals(textfiltro.getText())) {
+								String[] fila= {idmercancia[f], mercancia[f], preciorecolector[f]};
+								modelonuevo.addRow(fila);
+								tablamercancia.setModel(modelonuevo);
+							}
+						}
+						if(idmercancia[f].equals(textfiltro.getText())) {
+							String[] fila= {idmercancia[f], mercancia[f], preciorecolector[f]};
+							modelocodigo.addRow(fila);
+							tablamercancia.setModel(modelocodigo);
+						}
+					}
+				} else if(combofiltro.getSelectedItem().equals("Mercancia")) {
+					for(int f=0;f<x;f++) {
+						char[] cadena=mercancia[f].toCharArray();
+						for(int k=0;k<cadena.length;k++) {
+							String cadenaconvertida=String.valueOf(cadena[k]);
+							if(cadenaconvertida.equals(textfiltro.getText())) {
+								String[] fila= {idmercancia[f], mercancia[f], preciorecolector[f]};
+								modelonuevo.addRow(fila);
+								tablamercancia.setModel(modelonuevo);
+							}
+						}
+						if(mercancia[f].equals(textfiltro.getText())) {
+							String[] fila= {idmercancia[f], mercancia[f], preciorecolector[f]};
+							modelonombre.addRow(fila);
+							tablamercancia.setModel(modelonombre);
+						}
+					}
+				} else if(textfiltro.getText().equals("")) {
+					tablamercancia.setModel(modelomercancia);
+				}
+			}
+		});
+		panelsur.add(textfiltro);
+		textfiltro.setColumns(10);
 		frmSeleccionarMercancia.setForeground(Color.GRAY);
 		frmSeleccionarMercancia.setIconImage(Toolkit.getDefaultToolkit().getImage(Seleccion_Mercancia.class.getResource("/images/comedor.png")));
 		frmSeleccionarMercancia.setTitle("Seleccionar Mercancia");

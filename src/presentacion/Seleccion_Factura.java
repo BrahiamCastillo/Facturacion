@@ -22,22 +22,31 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo_Cliente, ICompletivo_Mercancia {
 
 	private JFrame frmSeleccionarFactura;
 	private JTable tablafactura;
 	private DefaultTableModel modelofactura;
-	private String[] campocedula, camponombre, campoapellido, campodireccion, campotelefono,
+	private String[] idfacturasfiltradas, cedulasfiltradas, campocedula, camponombre, campoapellido, campodireccion, campotelefono,
 	campoclientecodigo;
 	private String codigolocal, cedulalocal;
 	private JPanel paneleste;
 	private JButton btnAgregar;
-	private int contadorcliente=0;
+	private int contadorcliente=0, p;
+	private JPanel panelsur;
+	private JLabel lblSeleccioneUnFiltro;
+	private JComboBox<String> combofiltro;
+	private JTextField textfiltro;
 
 	/**
 	 * Launch the application.
@@ -109,6 +118,81 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 		gbc_btnAgregar.gridwidth=2;
 		gbc_btnAgregar.fill=GridBagConstraints.BOTH;
 		paneleste.add(btnAgregar, gbc_btnAgregar);
+		
+		panelsur = new JPanel();
+		frmSeleccionarFactura.getContentPane().add(panelsur, BorderLayout.SOUTH);
+		
+		lblSeleccioneUnFiltro = new JLabel("Seleccione un filtro:");
+		panelsur.add(lblSeleccioneUnFiltro);
+		
+		combofiltro = new JComboBox<String>();
+		combofiltro.addItem("");
+		combofiltro.addItem("ID-Factura");
+		combofiltro.addItem("Cedula");
+		panelsur.add(combofiltro);
+		
+		textfiltro = new JTextField();
+		textfiltro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				p=modelofactura.getRowCount();
+				//Aquí se continuará haciendo un for para llenar un array con las filas de las id facturas y las cedulas almacenadas.
+				idfacturasfiltradas=new String[p];
+				cedulasfiltradas=new String[p];
+				for(int f=0;f<p;f++) {
+					idfacturasfiltradas[f]=(String) modelofactura.getValueAt(f, 0);
+					cedulasfiltradas[f]=(String) modelofactura.getValueAt(f, 1);
+				}
+				DefaultTableModel modelonuevo=new DefaultTableModel();
+				modelonuevo.addColumn("ID factura");
+				modelonuevo.addColumn("Cédula");
+				DefaultTableModel modeloidfactura=new DefaultTableModel();
+				modeloidfactura.addColumn("ID factura");
+				modeloidfactura.addColumn("Cédula");
+				DefaultTableModel modelocedula=new DefaultTableModel();
+				modelocedula.addColumn("ID factura");
+				modelocedula.addColumn("Cédula");
+				if(combofiltro.getSelectedItem().equals("ID-Factura")) {
+					for(int f=0;f<p;f++) {
+						char[] cadena=idfacturasfiltradas[f].toCharArray();
+						for(int k=0;k<cadena.length;k++) {
+							String cadenaconvertida=String.valueOf(cadena[k]);
+							if(cadenaconvertida.equals(textfiltro.getText())) {
+								String[] fila= {idfacturasfiltradas[f],cedulasfiltradas[f]};
+								modelonuevo.addRow(fila);
+								tablafactura.setModel(modelonuevo);
+							}
+						}
+						if(idfacturasfiltradas[f].equals(textfiltro.getText())) {
+							String[] fila= {idfacturasfiltradas[f],cedulasfiltradas[f]};
+							modeloidfactura.addRow(fila);
+							tablafactura.setModel(modeloidfactura);
+						}
+					}
+				} else if(combofiltro.getSelectedItem().equals("Cedula")) {
+					for(int f=0;f<x;f++) {
+						char[] cadena=cedulasfiltradas[f].toCharArray();
+						for(int k=0;k<cadena.length;k++) {
+							String cadenaconvertida=String.valueOf(cadena[k]);
+							if(cadenaconvertida.equals(textfiltro.getText())) {
+								String[] fila= {idfacturasfiltradas[f],cedulasfiltradas[f]};
+								modelonuevo.addRow(fila);
+								tablafactura.setModel(modelonuevo);
+							}
+						}
+						if(cedulasfiltradas[f].equals(textfiltro.getText())) {
+							String[] fila= {idfacturasfiltradas[f],cedulasfiltradas[f]};
+							modelocedula.addRow(fila);
+							tablafactura.setModel(modelocedula);
+						}
+					}
+				} else if(textfiltro.getText().equals("")) {
+					tablafactura.setModel(modelofactura);
+				} 
+			}
+		});
+		panelsur.add(textfiltro);
+		textfiltro.setColumns(10);
 	}
 
 	@Override
@@ -183,8 +267,8 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 				}
 				
 		    }
-		
 	 }
+		
   }
 
 	@Override
@@ -229,8 +313,8 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 		if(seleccion<0) {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
-			Factura_Contado.textfactura.setText((String) modelofactura.getValueAt(seleccion, 0));
-			Factura_Contado.textcedula.setText((String) modelofactura.getValueAt(seleccion, 1));
+			Factura_Contado.textfactura.setText((String) tablafactura.getValueAt(seleccion, 0));
+			Factura_Contado.textcedula.setText((String) tablafactura.getValueAt(seleccion, 1));
 		}
 		DefaultTableModel nuevo=new DefaultTableModel();
 		nuevo.addColumn("ID-Mercancía");
@@ -240,7 +324,7 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 		nuevo.addColumn("Precio total");
 		for(int k=0;k<x;k++) {
 			for(int f=0;f<y;f++) {
-				if(idfactura[k].equals(modelofactura.getValueAt(seleccion, 0)) && idmercancia[k].equals(idmercanciam[f])) {
+				if(idfactura[k].equals(tablafactura.getValueAt(seleccion, 0)) && idmercancia[k].equals(idmercanciam[f])) {
 					String[] filamerca= {idmercancia[k],mercanciam[f],cantidad[k],preciorecolectorm[f],subtotal[k]};
 					nuevo.addRow(filamerca);
 					Factura_Contado.table.setModel(nuevo);
@@ -250,7 +334,7 @@ public class Seleccion_Factura extends Factura_De_Contado implements ICompletivo
 					Factura_Contado.lblfecha.setText(fecha[k]);
 				}
 				for(int c=0;c<contadorcliente;c++) {
-					if(campocedula[c].equals(modelofactura.getValueAt(seleccion, 1))) {
+					if(campocedula[c].equals(tablafactura.getValueAt(seleccion, 1))) {
 						Factura_Contado.textcodigo.setText(campoclientecodigo[c]);
 						Factura_Contado.textnombre.setText(camponombre[c]);
 						Factura_Contado.textapellido.setText(campoapellido[c]);

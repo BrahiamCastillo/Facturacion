@@ -151,6 +151,27 @@ public class Seleccion_Cliente extends Cliente {
 				modelonuevo.addColumn("Apellido");
 				modelonuevo.addColumn("Dirección");
 				modelonuevo.addColumn("Teléfono");
+				DefaultTableModel modelocodigo=new DefaultTableModel();
+				modelocodigo.addColumn("Código");
+				modelocodigo.addColumn("Cédula");
+				modelocodigo.addColumn("Nombre");
+				modelocodigo.addColumn("Apellido");
+				modelocodigo.addColumn("Dirección");
+				modelocodigo.addColumn("Teléfono");
+				DefaultTableModel modelonombre=new DefaultTableModel();
+				modelonombre.addColumn("Código");
+				modelonombre.addColumn("Cédula");
+				modelonombre.addColumn("Nombre");
+				modelonombre.addColumn("Apellido");
+				modelonombre.addColumn("Dirección");
+				modelonombre.addColumn("Teléfono");
+				DefaultTableModel modelocedula=new DefaultTableModel();
+				modelocedula.addColumn("Código");
+				modelocedula.addColumn("Cédula");
+				modelocedula.addColumn("Nombre");
+				modelocedula.addColumn("Apellido");
+				modelocedula.addColumn("Dirección");
+				modelocedula.addColumn("Teléfono");
 				if(combofiltro.getSelectedItem().equals("Codigo")) {
 					for(int f=0;f<x;f++) {
 						char[] cadena=codigo[f].toCharArray();
@@ -161,6 +182,11 @@ public class Seleccion_Cliente extends Cliente {
 								modelonuevo.addRow(fila);
 								tablacliente.setModel(modelonuevo);
 							}
+						}
+						if(codigo[f].equals(textfiltro.getText())) {
+							String[] fila= {codigo[f], cedula[f], nombre[f], apellido[f], telefono[f], direccion[f]};
+							modelocodigo.addRow(fila);
+							tablacliente.setModel(modelocodigo);
 						}
 					}
 				} else if(combofiltro.getSelectedItem().equals("Nombre")) {
@@ -174,6 +200,11 @@ public class Seleccion_Cliente extends Cliente {
 								tablacliente.setModel(modelonuevo);
 							}
 						}
+						if(nombre[f].equals(textfiltro.getText())) {
+							String[] fila= {codigo[f], cedula[f], nombre[f], apellido[f], telefono[f], direccion[f]};
+							modelonombre.addRow(fila);
+							tablacliente.setModel(modelonombre);
+						}
 					}
 				} else if(combofiltro.getSelectedItem().equals("Cedula")) {
 					for(int f=0;f<x;f++) {
@@ -186,10 +217,15 @@ public class Seleccion_Cliente extends Cliente {
 								tablacliente.setModel(modelonuevo);
 							}
 						}
+						if(cedula[f].equals(textfiltro.getText())) {
+							String[] fila= {codigo[f], cedula[f], nombre[f], apellido[f], telefono[f], direccion[f]};
+							modelocedula.addRow(fila);
+							tablacliente.setModel(modelocedula);
+						}
 					}
-				} else {
+				} else if(textfiltro.getText().equals("")) {
 					tablacliente.setModel(modelocliente);
-				}
+				} 
 
 			}
 		});
